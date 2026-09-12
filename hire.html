@@ -1,0 +1,711 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#0B0A08">
+<meta name="description" content="Private hire at BRIX — an 8,500 sq ft warehouse for events, brand launches, private dining &amp; corporate hire in SE1.">
+<meta property="og:title" content="Private Hire — BRIX London Bridge">
+<meta property="og:description" content="Private hire at BRIX — an 8,500 sq ft warehouse for events, brand launches, private dining &amp; corporate hire in SE1.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<style>[hidden]{display:none!important}html{color-scheme:dark}</style>
+<title>Private Hire — BRIX London Bridge</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;700;800;900&family=Barlow:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap">
+<style>
+  /* ============================================================
+     BRIX — committed dark "fire in a warehouse" identity.
+     Single deliberate visual world; painted explicitly so it
+     holds on any host ground. Tokens on :root; a basement
+     theme-shift (agave gold) is applied on the SIXT33N page.
+     ============================================================ */
+  :root{
+    --void:#0B0A08;         /* near-black, warm bias  */
+    --pitch:#070605;        /* deepest ground         */
+    --concrete:#15120E;     /* warm charcoal surface  */
+    --concrete-2:#1D1913;   /* raised surface         */
+    --smoke:#2A241C;        /* borders / lifted       */
+    --bone:#EDE6D8;         /* warm off-white text    */
+    --ash:#A79C89;          /* muted secondary text   */
+    --ash-dim:#6E6455;      /* faint labels           */
+    --ember:#E4531B;        /* molten orange accent   */
+    --flame:#FF7A2E;        /* highlight              */
+    --coal:#7C2A0E;         /* deep ember glow        */
+    --agave:#C9A24E;        /* SIXT33N accent (gold)  */
+    --agave-deep:#8A6E2E;
+    --line:rgba(237,230,216,.12);
+    --line-strong:rgba(237,230,216,.22);
+
+    --accent:var(--ember);
+    --accent-hi:var(--flame);
+    --glow:var(--coal);
+
+    --font-display:"Anton",Impact,"Arial Narrow Bold",sans-serif;
+    --font-head:"Archivo","Helvetica Neue",Arial,sans-serif;
+    --font-body:"Barlow","Helvetica Neue",Arial,sans-serif;
+    --font-mono:"Space Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+
+    --wrap:1320px;
+    --gutter:clamp(1rem,5vw,4rem);
+    --section:clamp(3.75rem,9vw,8.5rem);
+
+    --fs-hero:clamp(4.5rem,20vw,17rem);
+    --fs-title:clamp(2.9rem,9vw,7rem);
+    --fs-h2:clamp(2rem,5vw,3.6rem);
+    --fs-h3:clamp(1.3rem,2.6vw,1.75rem);
+    --fs-lead:clamp(1.1rem,1.7vw,1.4rem);
+  }
+
+  /* basement / SIXT33N mood shift */
+  body.theme-basement{
+    --accent:var(--agave);
+    --accent-hi:#E6C778;
+    --glow:var(--agave-deep);
+    --void:#080808;
+    --concrete:#131210;
+    --concrete-2:#1A1814;
+  }
+
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0;
+    background:var(--void);
+    color:var(--bone);
+    font-family:var(--font-body);
+    font-size:clamp(1rem,1.05vw,1.09rem);
+    line-height:1.65;
+    font-weight:400;
+    letter-spacing:.005em;
+    overflow-x:hidden;
+    transition:background .6s ease;
+  }
+  ::selection{background:var(--accent);color:var(--pitch)}
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+  button{font-family:inherit;cursor:pointer}
+
+  /* film grain + ambient ember glow, fixed atmosphere layers */
+  .grain,.ambient{position:fixed;inset:0;pointer-events:none;z-index:0}
+  .grain{
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    opacity:.05;mix-blend-mode:overlay;z-index:60;
+  }
+  .ambient{
+    background:
+      radial-gradient(60vw 46vw at 50% 118%, color-mix(in srgb,var(--glow) 60%, transparent), transparent 70%),
+      radial-gradient(40vw 40vw at 88% -8%, color-mix(in srgb,var(--accent) 16%, transparent), transparent 65%);
+    opacity:.55;transition:background .6s ease;
+    animation:breathe 14s ease-in-out infinite;
+  }
+  @keyframes breathe{0%,100%{opacity:.42}50%{opacity:.62}}
+
+  .wrap{width:100%;max-width:var(--wrap);margin-inline:auto;padding-inline:var(--gutter)}
+  main{position:relative;z-index:1}
+
+  /* ---------- shared type helpers ---------- */
+  .mono{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.24em;text-transform:uppercase;color:var(--ash)}
+  .mono-accent{color:var(--accent)}
+  .eyebrow{display:inline-flex;align-items:center;gap:.7em;font-family:var(--font-mono);font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;color:var(--accent)}
+  .eyebrow::before{content:"";width:2.2rem;height:1px;background:var(--accent);display:inline-block}
+  h1,h2,h3,h4{margin:0;text-wrap:balance;font-weight:400;line-height:.94;letter-spacing:.005em}
+  .display{font-family:var(--font-display);text-transform:uppercase}
+  .lead{font-size:var(--fs-lead);line-height:1.5;color:var(--bone);font-weight:300;max-width:34ch}
+  p{margin:0 0 1.1em;max-width:64ch}
+  .measure{max-width:60ch}
+
+  /* ---------- buttons ---------- */
+  .btn{
+    --bg:var(--accent);--fg:var(--pitch);
+    display:inline-flex;align-items:center;gap:.7em;
+    font-family:var(--font-head);font-weight:700;font-size:.82rem;
+    letter-spacing:.14em;text-transform:uppercase;
+    padding:1.02em 1.7em;background:var(--bg);color:var(--fg);
+    border:1px solid var(--bg);position:relative;overflow:hidden;
+    transition:color .3s ease,background .3s ease,border-color .3s ease;
+  }
+  .btn .arw{transition:transform .3s ease}
+  .btn:hover{background:var(--accent-hi);border-color:var(--accent-hi)}
+  .btn:hover .arw{transform:translateX(4px)}
+  .btn--ghost{--bg:transparent;--fg:var(--bone);border-color:var(--line-strong)}
+  .btn--ghost:hover{--fg:var(--pitch);background:var(--accent);border-color:var(--accent)}
+  .btn:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{
+    outline:2px solid var(--accent-hi);outline-offset:3px}
+  .textlink{display:inline-flex;align-items:center;gap:.55em;font-family:var(--font-head);font-weight:700;
+    font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;color:var(--bone);
+    padding-bottom:.3em;border-bottom:1px solid var(--line-strong);transition:color .25s,border-color .25s}
+  .textlink .arw{color:var(--accent);transition:transform .3s ease}
+  .textlink:hover{color:var(--accent);border-color:var(--accent)}
+  .textlink:hover .arw{transform:translate(3px,-3px)}
+
+  /* ---------- header / nav ---------- */
+  header.nav{
+    position:fixed;top:0;left:0;right:0;z-index:50;
+    display:flex;align-items:center;justify-content:space-between;gap:1rem;
+    padding:1.15rem var(--gutter);
+    background:color-mix(in srgb,var(--void) 82%, transparent);
+    backdrop-filter:blur(14px) saturate(120%);
+    border-bottom:1px solid var(--line);
+    transition:padding .35s ease,background .35s ease;
+  }
+  header.nav.scrolled{padding-block:.7rem;background:color-mix(in srgb,var(--void) 94%, transparent)}
+  .brand{font-family:var(--font-display);font-size:1.7rem;letter-spacing:.08em;color:var(--bone);line-height:1;
+    display:inline-flex;align-items:center;gap:.5rem}
+  .brand .dot{width:.42rem;height:.42rem;background:var(--accent);display:inline-block;margin-bottom:.55rem;transition:background .4s}
+  .nav-links{display:flex;align-items:center;gap:1.4rem}
+  .nav-links a{font-family:var(--font-head);font-weight:600;font-size:.735rem;letter-spacing:.13em;text-transform:uppercase;
+    color:var(--ash);position:relative;padding:.3em 0;transition:color .25s}
+  .nav-links a::after{content:"";position:absolute;left:0;right:100%;bottom:-.1em;height:1px;background:var(--accent);transition:right .3s ease}
+  .nav-links a:hover{color:var(--bone)}
+  .nav-links a:hover::after{right:0}
+  .nav-links a.active{color:var(--bone)}
+  .nav-links a.active::after{right:0}
+  .nav-cta{display:flex;align-items:center;gap:.9rem}
+  .nav-cta .btn{padding:.82em 1.3em;font-size:.74rem}
+  .burger{display:none;background:none;border:1px solid var(--line-strong);color:var(--bone);
+    width:2.9rem;height:2.9rem;align-items:center;justify-content:center;flex-direction:column;gap:5px}
+  .burger span{width:18px;height:1.6px;background:var(--bone);transition:.3s}
+  .burger.open span:nth-child(1){transform:translateY(6.6px) rotate(45deg)}
+  .burger.open span:nth-child(2){opacity:0}
+  .burger.open span:nth-child(3){transform:translateY(-6.6px) rotate(-45deg)}
+
+  /* mobile menu overlay */
+  .mobile-menu{position:fixed;inset:0;z-index:45;background:var(--pitch);
+    display:flex;flex-direction:column;justify-content:flex-start;gap:.1rem;
+    padding:96px var(--gutter) 2rem;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;
+    transform:translateY(-100%);transition:transform .5s cubic-bezier(.7,0,.2,1);visibility:hidden}
+  .mobile-menu.open{transform:translateY(0);visibility:visible}
+  .mobile-menu a{font-family:var(--font-display);text-transform:uppercase;font-size:clamp(1.7rem,8.5vw,3.1rem);
+    color:var(--bone);line-height:1.05;padding:.1em 0;display:flex;align-items:baseline;gap:1rem;transition:color .25s}
+  .mobile-menu a .idx{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.2em;color:var(--ash-dim)}
+  .mobile-menu a:hover,.mobile-menu a.active{color:var(--accent)}
+  .mobile-menu .mm-foot{margin-top:2.4rem;display:flex;flex-direction:column;gap:.5rem}
+
+  /* ---------- ticker ---------- */
+  .ticker{border-block:1px solid var(--line);background:var(--pitch);overflow:hidden;position:relative;z-index:1}
+  .ticker__track{display:inline-flex;white-space:nowrap;will-change:transform;animation:marquee 34s linear infinite}
+  .ticker span{font-family:var(--font-display);text-transform:uppercase;font-size:clamp(1.2rem,2.4vw,1.9rem);
+    letter-spacing:.02em;color:var(--bone);padding:.62em 0;display:inline-flex;align-items:center}
+  .ticker span i{color:var(--accent);font-style:normal;margin:0 1.1rem;font-size:.7em;transform:translateY(-.1em)}
+  @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+  /* ---------- page system ---------- */
+  .page{padding-top:0}
+  .page[hidden]{display:none}
+  section{padding-block:var(--section)}
+
+  /* generic hero for interior pages */
+  .phero{position:relative;padding-top:calc(72px + var(--section))}
+  .phero .kicker{display:flex;flex-wrap:wrap;gap:1.4rem;align-items:center;margin-top:1.7rem;color:var(--ash)}
+  .phero h1{font-family:var(--font-display);font-size:var(--fs-title);color:var(--bone);margin-top:1.1rem}
+  .phero .lead{margin-top:1.6rem;font-size:var(--fs-lead)}
+
+  /* ---------- home hero ---------- */
+  .hero{min-height:clamp(520px,82svh,780px);display:flex;flex-direction:column;justify-content:flex-end;
+    padding-top:calc(72px + clamp(1rem,4vh,2.5rem));padding-bottom:clamp(2rem,5vh,3.5rem);position:relative}
+  .hero__spec{display:flex;flex-wrap:wrap;gap:1.2rem 2.2rem;margin-bottom:1.6rem}
+  .hero__spec .s{display:flex;align-items:center;gap:.6rem}
+  .hero__spec .s b{font-family:var(--font-mono);color:var(--accent);font-weight:700;font-size:.72rem;letter-spacing:.1em}
+  .hero__spec .s span{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ash)}
+  .hero h1{font-family:var(--font-display);font-size:var(--fs-hero);letter-spacing:.01em;color:var(--bone);
+    line-height:.82;margin-bottom:0}
+  .hero h1 .amp{color:var(--accent)}
+  .hero__row{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:2rem;margin-top:1.9rem}
+  .hero__tag{font-family:var(--font-head);font-weight:800;text-transform:uppercase;letter-spacing:.02em;
+    font-size:clamp(1.1rem,2.2vw,1.7rem);line-height:1.06;color:var(--bone)}
+  .hero__tag em{font-style:normal;color:var(--accent)}
+  .hero__sub{color:var(--ash);max-width:40ch;margin-top:1rem;font-weight:300;font-size:1.05rem}
+  .hero__cta{display:flex;flex-wrap:wrap;gap:.9rem}
+  .scrollcue{margin-top:2.6rem;display:inline-flex;align-items:center;gap:.7rem;color:var(--ash-dim)}
+  .scrollcue .ln{width:46px;height:1px;background:var(--line-strong);position:relative;overflow:hidden}
+  .scrollcue .ln::after{content:"";position:absolute;inset:0;background:var(--accent);transform:translateX(-100%);animation:sweep 2.6s ease-in-out infinite}
+  @keyframes sweep{0%{transform:translateX(-100%)}55%,100%{transform:translateX(100%)}}
+
+  /* ---------- image slots (styled placeholders) ---------- */
+  .slot{position:relative;overflow:hidden;background:
+      linear-gradient(135deg,var(--concrete-2),var(--pitch));
+    border:1px solid var(--line);isolation:isolate}
+  .slot::before{content:"";position:absolute;inset:0;z-index:0;
+    background:
+      radial-gradient(80% 60% at 20% 120%, color-mix(in srgb,var(--glow) 55%, transparent), transparent 60%),
+      repeating-linear-gradient(115deg, transparent 0 22px, rgba(0,0,0,.28) 22px 23px);
+    opacity:.7;transition:opacity .5s ease,transform 1.2s ease}
+  .slot::after{content:"";position:absolute;inset:0;z-index:1;
+    background:linear-gradient(to top, color-mix(in srgb,var(--pitch) 88%, transparent), transparent 62%)}
+  .slot:hover::before{opacity:1;transform:scale(1.04)}
+  .slot .tag{position:absolute;left:1rem;bottom:1rem;z-index:2;font-family:var(--font-mono);font-size:.66rem;
+    letter-spacing:.2em;text-transform:uppercase;color:var(--bone);
+    background:color-mix(in srgb,var(--pitch) 70%, transparent);border:1px solid var(--line);
+    padding:.42em .7em;display:inline-flex;align-items:center;gap:.55em}
+  .slot .tag::before{content:"";width:.5rem;height:.5rem;background:var(--accent);display:inline-block}
+  .slot .frame{position:absolute;inset:1rem;z-index:2;border:1px dashed var(--line-strong);opacity:.5;pointer-events:none}
+  .slot .ghost{position:absolute;inset:0;z-index:1;display:grid;place-items:center;
+    font-family:var(--font-display);text-transform:uppercase;font-size:clamp(2.4rem,9vw,6rem);
+    color:color-mix(in srgb,var(--bone) 6%, transparent);letter-spacing:.04em;user-select:none}
+  .slot.tall{aspect-ratio:3/4}
+  .slot.wide{aspect-ratio:16/10}
+  .slot.sq{aspect-ratio:1/1}
+  .slot.band{aspect-ratio:auto;min-height:clamp(240px,42vw,460px)}
+
+  /* ---------- layout blocks ---------- */
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:clamp(1.6rem,4vw,4rem);align-items:center}
+  .split.narrow-first{grid-template-columns:.85fr 1.15fr}
+  .split.wide-first{grid-template-columns:1.15fr .85fr}
+  .stack-sm{display:flex;flex-direction:column;gap:1.1rem;align-items:flex-start}
+  .sticky-side{position:sticky;top:100px}
+  .section-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:1.4rem;margin-bottom:clamp(2rem,4vw,3.4rem)}
+  .section-head h2{font-family:var(--font-display);font-size:var(--fs-h2);color:var(--bone)}
+  .section-head .mono{max-width:26ch;text-align:right}
+
+  /* offerings grid (home) */
+  .offer-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+  .offer-grid--3{grid-template-columns:repeat(3,1fr)}
+  .offer{position:relative;background:var(--void);padding:0;overflow:hidden;display:flex;flex-direction:column;min-height:340px}
+  .offer .slot{border:0;flex:1;min-height:200px}
+  .offer .offer__body{padding:1.5rem 1.6rem 1.7rem;position:relative;z-index:2}
+  .offer__num{position:absolute;top:1rem;right:1.3rem;z-index:3;font-family:var(--font-mono);font-size:.68rem;letter-spacing:.2em;color:var(--ash-dim)}
+  .offer h3{font-family:var(--font-display);text-transform:uppercase;font-size:clamp(1.5rem,3vw,2.1rem);color:var(--bone);margin-bottom:.5rem}
+  .offer p{color:var(--ash);font-size:.98rem;margin-bottom:1rem;max-width:38ch}
+  .offer .textlink{font-size:.72rem}
+  .offer:hover h3{color:var(--accent)}
+
+  /* feature (Sunday roast) */
+  .feature{position:relative;border:1px solid var(--line);background:linear-gradient(180deg,var(--concrete),var(--void))}
+  .feature__grid{display:grid;grid-template-columns:1.1fr .9fr;gap:0;align-items:stretch}
+  .feature__body{padding:clamp(2rem,4vw,3.6rem)}
+  .badge{display:inline-flex;align-items:center;gap:.7rem;border:1px solid var(--accent);color:var(--accent);
+    font-family:var(--font-mono);font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;padding:.5em .8em;margin-bottom:1.5rem}
+  .badge b{font-weight:700;color:var(--bone)}
+  .feature h2{font-family:var(--font-display);font-size:var(--fs-h2);color:var(--bone);margin-bottom:1.1rem}
+
+  /* strip (sixt33n teaser / hire teaser) */
+  .strip{position:relative;border:1px solid var(--line);overflow:hidden;background:var(--pitch)}
+  .strip__inner{position:relative;z-index:2;padding:clamp(2.2rem,5vw,4.5rem);display:grid;grid-template-columns:1.3fr .7fr;gap:2rem;align-items:center}
+  .strip__glow{position:absolute;inset:0;z-index:0;background:radial-gradient(70% 120% at 12% 50%, color-mix(in srgb,var(--glow) 60%, transparent), transparent 60%);opacity:.8}
+  .strip h2{font-family:var(--font-display);font-size:clamp(2.2rem,6vw,4.4rem);color:var(--bone);line-height:.9}
+  .strip .sub{color:var(--ash);margin-top:1.1rem;max-width:44ch}
+
+  /* stat / spec row */
+  .specs{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border-block:1px solid var(--line)}
+  .spec{background:var(--void);padding:1.7rem 1.4rem;display:flex;flex-direction:column;gap:.4rem}
+  .spec b{font-family:var(--font-display);font-size:clamp(1.9rem,4vw,2.9rem);color:var(--accent);line-height:1}
+  .spec span{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ash)}
+
+  /* ---------- menu ---------- */
+  .menu-note{border:1px solid var(--line);background:var(--concrete);padding:1rem 1.2rem;display:flex;gap:.9rem;align-items:center;
+    font-family:var(--font-mono);font-size:.72rem;letter-spacing:.08em;color:var(--ash);text-transform:uppercase;margin-bottom:clamp(2rem,4vw,3rem)}
+  .menu-note b{color:var(--accent)}
+  .menu-block{margin-bottom:clamp(2.4rem,5vw,4rem)}
+  .menu-block h3{font-family:var(--font-display);text-transform:uppercase;font-size:clamp(1.6rem,3.4vw,2.4rem);color:var(--bone);
+    display:flex;align-items:baseline;gap:1rem;margin-bottom:1.6rem;border-bottom:1px solid var(--line);padding-bottom:1rem}
+  .menu-block h3 .mono{font-size:.66rem;color:var(--ash-dim)}
+  .menu-items{display:grid;grid-template-columns:1fr 1fr;gap:.2rem 3rem}
+  .mi{display:grid;grid-template-columns:1fr auto;gap:1rem;align-items:baseline;padding:.85rem 0;border-bottom:1px solid var(--line)}
+  .mi .n{font-family:var(--font-head);font-weight:600;color:var(--bone);font-size:1.02rem}
+  .mi .d{color:var(--ash);font-size:.9rem;font-weight:300;margin-top:.15rem;max-width:42ch}
+  .mi .p{font-family:var(--font-mono);font-weight:700;color:var(--accent);font-size:.92rem;font-variant-numeric:tabular-nums}
+  .mi .v{font-family:var(--font-mono);font-size:.6rem;letter-spacing:.15em;color:var(--ash-dim);border:1px solid var(--line);padding:.1em .35em;margin-left:.5em;vertical-align:middle}
+
+  /* ---------- private hire spaces ---------- */
+  .spaces{display:grid;grid-template-columns:repeat(2,1fr);gap:1.2rem}
+  .space{border:1px solid var(--line);background:var(--concrete);display:flex;flex-direction:column;overflow:hidden}
+  .space .slot{border:0;border-bottom:1px solid var(--line)}
+  .space__body{padding:1.5rem 1.6rem 1.7rem}
+  .space h3{font-family:var(--font-display);text-transform:uppercase;font-size:clamp(1.5rem,3vw,2rem);color:var(--bone);margin-bottom:.7rem}
+  .space .caps{display:flex;gap:1.6rem;margin-top:1.1rem;padding-top:1.1rem;border-top:1px solid var(--line)}
+  .space .caps div{display:flex;flex-direction:column}
+  .space .caps b{font-family:var(--font-mono);font-weight:700;color:var(--accent);font-size:1.2rem;font-variant-numeric:tabular-nums}
+  .space .caps span{font-family:var(--font-mono);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ash)}
+  .usecases{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:.4rem}
+  .chip{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--bone);
+    border:1px solid var(--line-strong);padding:.55em .9em;transition:.25s}
+  .chip:hover{border-color:var(--accent);color:var(--accent)}
+
+  /* ---------- forms ---------- */
+  .form-card{border:1px solid var(--line);background:var(--concrete);padding:clamp(1.6rem,3vw,2.6rem)}
+  .field{display:flex;flex-direction:column;gap:.5rem;margin-bottom:1.1rem}
+  .field label{font-family:var(--font-mono);font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ash)}
+  .field input,.field select,.field textarea{
+    background:var(--pitch);border:1px solid var(--line-strong);color:var(--bone);
+    font-family:var(--font-body);font-size:1rem;padding:.85em .9em;width:100%;border-radius:0;transition:border-color .25s}
+  .field input:focus,.field select:focus,.field textarea:focus{border-color:var(--accent);outline:none}
+  .field textarea{resize:vertical;min-height:110px}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem}
+  .form-ok{border:1px solid var(--accent);background:color-mix(in srgb,var(--glow) 18%, var(--concrete));padding:1.4rem 1.5rem}
+  .form-ok b{font-family:var(--font-head);font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--bone);display:block;margin-bottom:.4rem}
+
+  /* ---------- contact ---------- */
+  .info-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line)}
+  .info{background:var(--void);padding:1.7rem 1.7rem}
+  .info h4{font-family:var(--font-mono);font-weight:700;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem}
+  .info a,.info p{color:var(--bone);margin:0}
+  .hours{display:flex;flex-direction:column;gap:.35rem}
+  .hours .r{display:flex;justify-content:space-between;gap:1.5rem;font-size:.95rem;padding:.15rem 0;border-bottom:1px dotted var(--line)}
+  .hours .r span:first-child{color:var(--ash)}
+  .hours .r.closed span:last-child{color:var(--ash-dim)}
+  .hours .r.today{color:var(--bone)}
+  .hours .r.today span:last-child{color:var(--accent);font-weight:600}
+  .maplink{position:relative;overflow:hidden;border:1px solid var(--line);min-height:clamp(240px,34vw,420px);display:flex;align-items:flex-end;padding:1.4rem;
+    background:
+      radial-gradient(60% 60% at 70% 20%, color-mix(in srgb,var(--glow) 40%, transparent), transparent 60%),
+      repeating-linear-gradient(0deg,transparent 0 38px, rgba(237,230,216,.05) 38px 39px),
+      repeating-linear-gradient(90deg,transparent 0 38px, rgba(237,230,216,.05) 38px 39px),
+      var(--pitch)}
+  .maplink .pin{position:absolute;top:20%;left:70%;width:.9rem;height:.9rem;background:var(--accent);border-radius:50%;
+    box-shadow:0 0 0 6px color-mix(in srgb,var(--accent) 22%, transparent),0 0 24px var(--accent)}
+
+  /* ---------- footer ---------- */
+  footer.site{position:relative;z-index:1;border-top:1px solid var(--line);background:var(--pitch);margin-top:var(--section)}
+  .foot-top{display:grid;grid-template-columns:1.4fr 1fr 1fr 1.2fr;gap:2.4rem;padding-block:clamp(2.6rem,5vw,4.5rem)}
+  .foot-brand .fb{font-family:var(--font-display);font-size:clamp(3rem,7vw,5rem);color:var(--bone);line-height:.86;text-transform:uppercase}
+  .foot-brand .fb .dot{color:var(--accent)}
+  .foot-brand p{color:var(--ash);margin-top:1rem;max-width:30ch;font-size:.95rem}
+  .foot-col h5{font-family:var(--font-mono);font-weight:700;font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin:0 0 1.1rem}
+  .foot-col a,.foot-col p{display:block;color:var(--ash);margin:0 0 .55rem;font-size:.95rem;transition:color .2s}
+  .foot-col a:hover{color:var(--bone)}
+  .news p{color:var(--ash);font-size:.95rem;margin-bottom:1rem}
+  .news form{display:flex;border:1px solid var(--line-strong)}
+  .news input{flex:1;background:var(--pitch);border:0;color:var(--bone);padding:.85em .9em;font-family:var(--font-body);font-size:.95rem}
+  .news input:focus{outline:none}
+  .news button{background:var(--accent);color:var(--pitch);border:0;padding:0 1.1em;font-family:var(--font-head);font-weight:800;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;transition:background .25s}
+  .news button:hover{background:var(--accent-hi)}
+  .news .ok{color:var(--accent);font-family:var(--font-mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;margin-top:.8rem}
+  .foot-bottom{display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem;padding-block:1.5rem;border-top:1px solid var(--line)}
+  .foot-bottom .mono{color:var(--ash-dim)}
+  .foot-bottom a.mono:hover{color:var(--accent)}
+  .socials{display:flex;gap:1.2rem}
+
+  /* ---------- reveal (rests visible; JS replays a gentle rise) ---------- */
+  [data-reveal]{opacity:1;transform:none}
+  body.js .page.is-entering [data-reveal]{opacity:0;transform:translateY(18px)}
+  body.js .page.is-entering.play [data-reveal]{opacity:1;transform:none;
+    transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1);transition-delay:var(--d,0ms)}
+
+  /* ---------- responsive ---------- */
+  @media(max-width:1080px){
+    .foot-top{grid-template-columns:1fr 1fr}
+    .foot-brand{grid-column:1/-1}
+  }
+  @media(max-width:1080px){
+    .nav-links{display:none}
+    .nav-cta{display:none}
+    .burger{display:flex}
+  }
+  @media(max-width:900px){
+    .sticky-side{position:static;top:auto}
+    .split,.split.narrow-first,.split.wide-first{grid-template-columns:1fr;gap:2rem}
+    .feature__grid{grid-template-columns:1fr}
+    .strip__inner{grid-template-columns:1fr;gap:1.6rem}
+    .offer-grid,.offer-grid--3{grid-template-columns:1fr}
+    .specs{grid-template-columns:repeat(2,1fr)}
+    .perks{grid-template-columns:repeat(2,1fr)}
+    .menu-items{grid-template-columns:1fr}
+    .spaces{grid-template-columns:1fr}
+    .info-grid{grid-template-columns:1fr}
+    .section-head .mono{text-align:left}
+  }
+  @media(max-width:560px){
+    .hero__row{flex-direction:column;align-items:flex-start}
+    .form-row{grid-template-columns:1fr}
+    .foot-top{grid-template-columns:1fr}
+    .specs{grid-template-columns:1fr}
+    .perks{grid-template-columns:1fr}
+    .nav-cta{display:none}
+    .hero{min-height:auto}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+    body.js .page.is-entering [data-reveal]{opacity:1;transform:none}
+  }
+
+  /* real BRIX logo */
+  .brand-logo{height:25px;width:auto;display:block}
+  header.nav.scrolled .brand-logo{height:21px;transition:height .35s ease}
+  .brand-logo,header.nav .brand{transition:height .35s ease}
+  .hero-logo-wrap{line-height:0;margin:0}
+  .hero-logo{width:clamp(260px,56vw,720px);height:auto;display:block}
+  .foot-logo{width:clamp(180px,24vw,280px);height:auto;display:block}
+  @media(max-width:560px){.hero-logo{width:80vw}}
+
+  /* ---------- real media ---------- */
+  .slot.has-media{background:#000}
+  .slot.has-media::before{opacity:0}
+  .slot .fill{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;z-index:0}
+  .slot.has-media .tag{z-index:3}
+  .gallery{display:grid;gap:1px;background:var(--line);border:1px solid var(--line)}
+  .gallery--2{grid-template-columns:repeat(2,1fr)}
+  .gallery .slot{border:0}
+  .hero__bg{position:absolute;inset:0;z-index:0;overflow:hidden;background:#000}
+  .hero__bg video,.hero__bg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+  .hero__scrim{position:absolute;inset:0;z-index:1;background:
+     linear-gradient(180deg, color-mix(in srgb,var(--void) 78%, transparent), color-mix(in srgb,var(--void) 30%, transparent) 40%, color-mix(in srgb,var(--void) 90%, transparent)),
+     radial-gradient(120% 82% at 50% 118%, color-mix(in srgb,var(--glow) 40%, transparent), transparent 60%)}
+  .hero__inner{position:relative;z-index:2;width:100%;max-width:var(--wrap);margin-inline:auto;padding-inline:var(--gutter);display:flex;flex-direction:column}
+  .strip__bg-wrap{position:absolute;inset:0;z-index:0;overflow:hidden}
+  .strip__bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.42}
+
+  /* SIXT33N sub-brand logo */
+  .sixt-logo-wrap{line-height:0}
+  .sixt-logo{width:clamp(240px,42vw,520px);height:auto;display:block}
+  .strip .sixt-logo{width:clamp(190px,30vw,340px)}
+  .gallery--4{grid-template-columns:repeat(4,1fr)}
+  @media(max-width:640px){.gallery--4{grid-template-columns:repeat(2,1fr)}}
+  /* membership */
+  #perks,#join{scroll-margin-top:90px}
+  .freebadge{border:1px solid var(--accent);background:color-mix(in srgb,var(--glow) 15%, var(--concrete));padding:.9rem 1.1rem;font-family:var(--font-head);font-weight:600;color:var(--bone);font-size:.98rem}
+  .freebadge b{font-family:var(--font-display);text-transform:uppercase;letter-spacing:.03em;color:var(--accent);margin-right:.35em}
+  .perks{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+  .perk{background:var(--void);padding:1.7rem 1.5rem;display:flex;flex-direction:column;gap:.55rem;min-height:172px}
+  .perk .pk-tag{font-family:var(--font-mono);font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent)}
+  .perk h3{font-family:var(--font-head);font-weight:800;font-size:1.22rem;color:var(--bone);line-height:1.1}
+  .perk p{color:var(--ash);font-size:.92rem;margin:0;max-width:36ch}
+  .check{display:flex;gap:.6rem;align-items:flex-start;font-size:.85rem;color:var(--ash);margin-bottom:.3rem;cursor:pointer;line-height:1.4}
+  .check input{margin-top:.15rem;accent-color:var(--accent);width:1rem;height:1rem;flex:none}
+  /* menu switcher + cocktails */
+  .menu-tabs{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:clamp(1.8rem,3.5vw,2.8rem)}
+  .menu-tab{font-family:var(--font-head);font-weight:700;font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ash);border:1px solid var(--line-strong);padding:.72em 1.05em;transition:color .25s,border-color .25s,background .25s;white-space:nowrap}
+  .menu-tab:hover{color:var(--bone);border-color:var(--bone)}
+  .menu-tab.active{background:var(--accent);color:var(--pitch);border-color:var(--accent)}
+  .menu-served{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.05em;text-transform:uppercase;color:var(--ash);border-left:2px solid var(--accent);padding-left:.9rem;margin:0 0 1.4rem;max-width:74ch;line-height:1.7}
+  .mi.ck{grid-template-columns:1fr}
+  .mi .ck-note{font-family:var(--font-mono);font-size:.7rem;color:var(--accent);margin-top:.45rem;letter-spacing:.02em;line-height:1.5}
+</style>
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+<div class="ambient" aria-hidden="true"></div>
+
+<!-- ===================== NAV ===================== -->
+
+<header class="nav" id="nav">
+  <a class="brand" href="index.html" aria-label="BRIX home"><img class="brand-logo" src="data:image/webp;base64,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" alt="BRIX"></a>
+  <nav class="nav-links" aria-label="Primary">
+    <a href="restaurant.html">Restaurant</a>
+    <a href="sixt33n.html">SIXT33N</a>
+    <a href="hire.html" class="active">Hire</a>
+    <a href="menu.html">Menu</a>
+    <a href="events.html">Events</a>
+    <a href="membership.html">Membership</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+  <div class="nav-cta">
+    <a class="btn" href="https://www.brixldn.com/bookings" target="_blank" rel="noopener">Book a table <span class="arw">→</span></a>
+  </div>
+  <button class="burger" id="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html"><span class="idx">00</span>Home</a>
+  <a href="restaurant.html"><span class="idx">01</span>Restaurant</a>
+  <a href="sixt33n.html"><span class="idx">02</span>SIXT33N</a>
+  <a href="hire.html" class="active"><span class="idx">03</span>Private Hire</a>
+  <a href="menu.html"><span class="idx">04</span>Menu</a>
+  <a href="events.html"><span class="idx">05</span>Events</a>
+  <a href="membership.html"><span class="idx">06</span>Membership</a>
+  <a href="contact.html"><span class="idx">07</span>Contact</a>
+  <div class="mm-foot">
+    <a class="btn" href="https://www.brixldn.com/bookings" target="_blank" rel="noopener" style="align-self:flex-start;margin-top:1.4rem">Book a table <span class="arw">→</span></a>
+    <span class="mono" style="margin-top:1.2rem">16 Great Guildford St · SE1 0HS</span>
+  </div>
+</div>
+
+<main>
+<article class="page" id="page-hire">
+  <section class="phero wrap">
+    <span class="eyebrow" data-reveal>Private Hire</span>
+    <h1 data-reveal style="--d:40ms">Your event,<br>under one roof</h1>
+    <p class="lead" data-reveal style="--d:80ms">8,500 sq ft of raw warehouse with multiple rooms — the SE1 space for events, brand launches, private dining and corporate hire.</p>
+    <div class="kicker mono" data-reveal style="--d:120ms">
+      <span>Brand Launches</span><span>Private Dining</span><span>Corporate</span><span>Parties · Filming</span>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <div class="split wide-first">
+      <div class="stack-sm">
+        <span class="eyebrow" data-reveal>The Space</span>
+        <h2 class="display" data-reveal style="font-size:var(--fs-h2)">Flexible rooms,<br>industrial edge</h2>
+        <p class="measure" data-reveal style="--d:80ms">BRIX flexes from an intimate private dinner to a full-venue takeover. Exposed brick and steel, its own kitchen and bars, and a basement — SIXT33N — that works as a standalone party space. Whatever the brief, it lands somewhere memorable.</p>
+        <div class="usecases" data-reveal style="--d:120ms">
+          <span class="chip">Brand launches</span><span class="chip">Private dining</span><span class="chip">Corporate events</span>
+          <span class="chip">Birthdays</span><span class="chip">Receptions</span><span class="chip">Filming &amp; shoots</span>
+        </div>
+      </div>
+      <div class="slot tall has-media" data-reveal style="--d:100ms"><img class="fill" src="img/hire-hero.webp" alt="A BRIX room set for a private event" loading="lazy"></div>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <div class="section-head">
+      <h2 data-reveal>The rooms</h2>
+      <span class="mono" data-reveal>Capacities indicative — confirmed on enquiry against your format</span>
+    </div>
+    <div class="spaces">
+      <div class="space" data-reveal>
+        <span class="slot wide has-media"><img class="fill" src="img/venue-main.webp" alt="The main warehouse room" loading="lazy"></span>
+        <div class="space__body">
+          <h3>The Warehouse</h3>
+          <p style="color:var(--ash);max-width:40ch">The main room — brick, steel and long tables. The heart of the venue for launches and large dinners.</p>
+          <div class="caps">
+            <div><b>250</b><span>Standing</span></div><div><b>120</b><span>Seated</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="space" data-reveal style="--d:60ms">
+        <span class="slot wide has-media"><img class="fill" src="img/lounge.webp" alt="The mezzanine lounge" loading="lazy"></span>
+        <div class="space__body">
+          <h3>The Mezzanine</h3>
+          <p style="color:var(--ash);max-width:40ch">A raised, semi-private level overlooking the floor — ideal for receptions and breakout dining.</p>
+          <div class="caps">
+            <div><b>60</b><span>Standing</span></div><div><b>40</b><span>Seated</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="space" data-reveal style="--d:120ms">
+        <span class="slot wide has-media"><img class="fill" src="img/sixt33n-lounge.webp" alt="SIXT33N as a private space" loading="lazy"></span>
+        <div class="space__body">
+          <h3>SIXT33N Basement</h3>
+          <p style="color:var(--ash);max-width:40ch">The vinyl and agave bar as a private space — low light, records and a dedicated bar for after-dark events.</p>
+          <div class="caps">
+            <div><b>90</b><span>Standing</span></div><div><b>50</b><span>Seated</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="space" data-reveal style="--d:180ms">
+        <span class="slot wide has-media"><img class="fill" src="img/ev-full.webp" alt="The full venue packed for a party" loading="lazy"></span>
+        <div class="space__body">
+          <h3>The Full Venue</h3>
+          <p style="color:var(--ash);max-width:40ch">Take the lot — both floors, all bars, the kitchen and SIXT33N — for exclusive-use launches and takeovers.</p>
+          <div class="caps">
+            <div><b>400</b><span>Standing</span></div><div><b>200</b><span>Seated</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- enquiry form -->
+  <section class="wrap" id="enquire">
+    <div class="split narrow-first" style="align-items:start">
+      <div class="stack-sm sticky-side">
+        <span class="eyebrow" data-reveal>Enquire</span>
+        <h2 class="display" data-reveal style="font-size:var(--fs-h2)">Let's build<br>your night</h2>
+        <p class="measure" data-reveal style="--d:80ms">Tell us the shape of it — date, numbers and the kind of event. The team will come back within 24 hours with spaces and options.</p>
+        <p class="mono" data-reveal style="--d:120ms;color:var(--ash)">Or email · events@brixldn.com<br>Call · 020 3376 6408</p>
+      </div>
+      <form class="form-card" id="hireForm" data-reveal style="--d:80ms" novalidate>
+        <div class="form-row">
+          <div class="field"><label for="h-name">Name</label><input id="h-name" name="name" type="text" autocomplete="name" required></div>
+          <div class="field"><label for="h-email">Email</label><input id="h-email" name="email" type="email" autocomplete="email" required></div>
+        </div>
+        <div class="form-row">
+          <div class="field"><label for="h-type">Event type</label>
+            <select id="h-type" name="type">
+              <option>Brand launch</option><option>Private dining</option><option>Corporate event</option>
+              <option>Birthday / party</option><option>Reception</option><option>Filming / shoot</option><option>Something else</option>
+            </select>
+          </div>
+          <div class="field"><label for="h-guests">Guests (approx.)</label><input id="h-guests" name="guests" type="number" min="1" inputmode="numeric" placeholder="e.g. 80"></div>
+        </div>
+        <div class="form-row">
+          <div class="field"><label for="h-date">Preferred date</label><input id="h-date" name="date" type="date"></div>
+          <div class="field"><label for="h-space">Space</label>
+            <select id="h-space" name="space">
+              <option>No preference</option><option>The Warehouse</option><option>The Mezzanine</option><option>SIXT33N Basement</option><option>Full venue</option>
+            </select>
+          </div>
+        </div>
+        <div class="field"><label for="h-msg">Tell us more</label><textarea id="h-msg" name="message" placeholder="What are you planning?"></textarea></div>
+        <button class="btn" type="submit" style="width:100%;justify-content:center">Send enquiry <span class="arw">→</span></button>
+      </form>
+    </div>
+  </section>
+</article>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <div class="fb"><img class="foot-logo" src="data:image/webp;base64,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" alt="BRIX"></div>
+        <p>Fire, flavour, music and culture under one roof. An 8,500 sq ft warehouse in Bankside, London Bridge.</p>
+      </div>
+      <div class="foot-col">
+        <h5>Visit</h5>
+        <a href="restaurant.html">Restaurant</a>
+        <a href="sixt33n.html">SIXT33N</a>
+        <a href="menu.html">Menu</a>
+        <a href="roast.html">Sunday Roast</a>
+        <a href="brunch.html">Brunch</a>
+        <a href="cocktails.html">Cocktails</a>
+        <a href="events.html">Events</a>
+        <a href="membership.html">Membership</a>
+      </div>
+      <div class="foot-col">
+        <h5>Find us</h5>
+        <p>16 Great Guildford St</p>
+        <p>Bankside, SE1 0HS</p>
+        <a href="tel:+442033766408">020 3376 6408</a>
+        <a href="mailto:reservations@brixldn.com">reservations@brixldn.com</a>
+      </div>
+      <div class="foot-col news">
+        <h5>The BRIX list</h5>
+        <p>Roasts, drops and event nights — first to your inbox.</p>
+        <form id="newsForm" novalidate>
+          <input id="news-email" type="email" name="email" placeholder="your@email.com" aria-label="Email address" required>
+          <button type="submit">Join</button>
+        </form>
+        <div class="ok" id="newsOk" hidden>◆ You're on the list.</div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span class="mono">© 2026 BRIX London Bridge · SE1</span>
+      <div class="socials">
+        <a class="mono" href="https://instagram.com/brix_ldn" target="_blank" rel="noopener">Instagram</a>
+        <a class="mono" href="https://tiktok.com/@brix_ldn" target="_blank" rel="noopener">TikTok</a>
+        <a class="mono" href="https://facebook.com/BRIXLDN" target="_blank" rel="noopener">Facebook</a>
+      </div>
+      <span class="mono">Site by The Wonder Agency</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  document.body.classList.add("js");
+  var nav=document.getElementById("nav"), burger=document.getElementById("burger"), mobile=document.getElementById("mobileMenu");
+  var reduce=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function closeMobile(){ if(!mobile)return; mobile.classList.remove("open"); burger.classList.remove("open"); burger.setAttribute("aria-expanded","false"); document.body.style.overflow=""; }
+  if(burger){ burger.addEventListener("click", function(){ var o=mobile.classList.toggle("open"); burger.classList.toggle("open",o); burger.setAttribute("aria-expanded",o?"true":"false"); document.body.style.overflow=o?"hidden":""; }); }
+  if(mobile){ mobile.addEventListener("click", function(e){ if(e.target.closest("a")) closeMobile(); }); }
+  var onScroll=function(){ if(window.scrollY>24) nav.classList.add("scrolled"); else nav.classList.remove("scrolled"); };
+  window.addEventListener("scroll", onScroll, {passive:true}); onScroll();
+  // smooth-scroll same-page anchors (e.g. membership CTAs)
+  document.addEventListener("click", function(e){
+    var a=e.target.closest('a[href^="#"]'); if(!a) return;
+    var id=a.getAttribute("href"); if(id.length<2) return;
+    var t=document.querySelector(id); if(!t) return;
+    e.preventDefault(); closeMobile();
+    t.scrollIntoView({behavior: reduce?"auto":"smooth", block:"start"});
+  });
+  // load-in reveal
+  var art=document.querySelector(".page");
+  if(art && !reduce){ art.classList.add("is-entering"); void art.offsetWidth; requestAnimationFrame(function(){ art.classList.add("play"); }); setTimeout(function(){ art.classList.remove("is-entering","play"); },1300); }
+  // background/panel video
+  document.querySelectorAll("video").forEach(function(v){ try{ if(reduce){v.pause();} else { var p=v.play(); if(p&&p.catch) p.catch(function(){}); } }catch(e){} });
+  // demo forms
+  function on(id,h){ var f=document.getElementById(id); if(f) f.addEventListener("submit",h); }
+  on("newsForm", function(e){ e.preventDefault(); var em=document.getElementById("news-email"); if(!em.value||em.value.indexOf("@")===-1){em.focus();return;} document.getElementById("newsForm").hidden=true; document.getElementById("newsOk").hidden=false; });
+  on("hireForm", function(e){ e.preventDefault(); var n=document.getElementById("h-name"), m=document.getElementById("h-email"); if(!n.value){n.focus();return;} if(!m.value||m.value.indexOf("@")===-1){m.focus();return;} var ok=document.createElement("div"); ok.className="form-ok"; ok.innerHTML="<b>Enquiry received</b>Thanks "+n.value.split(" ")[0].replace(/[<>]/g,"")+" \u2014 the events team will be in touch within 24 hours. <span class='mono' style='display:block;margin-top:.7rem;color:var(--ash)'>Demo form \u00b7 wire this to events@brixldn.com on the live site.</span>"; document.getElementById("hireForm").replaceWith(ok); });
+  on("joinForm", function(e){ e.preventDefault(); var fn=document.getElementById("m-first"), em=document.getElementById("m-email"); if(!fn.value){fn.focus();return;} if(!em.value||em.value.indexOf("@")===-1){em.focus();return;} var ok=document.createElement("div"); ok.className="form-ok"; ok.innerHTML="<b>You're in \u2014 welcome to the club</b>Thanks "+fn.value.split(" ")[0].replace(/[<>]/g,"")+". You'll get your member perks and the first of our weekly offers by email. <span class='mono' style='display:block;margin-top:.7rem;color:var(--ash)'>Demo form \u00b7 wire this to your mailing list on the live site.</span>"; document.getElementById("joinForm").replaceWith(ok); });
+})();
+</script>
+</body>
+</html>
