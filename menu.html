@@ -515,7 +515,7 @@
   <nav class="nav-links" aria-label="Primary">
     <a href="restaurant.html">Restaurant</a>
     <a href="sixt33n.html">SIXT33N</a>
-    <a href="hire.html">Hire</a>
+    <a href="hire.html">Private Hire</a>
     <div class="nav-drop">
       <a href="menu.html" class="nav-drop__toggle active">Menu <span class="caret" aria-hidden="true">▾</span></a>
       <div class="nav-drop__panel">
@@ -703,8 +703,12 @@
   // load-in reveal
   var art=document.querySelector(".page");
   if(art && !reduce){ art.classList.add("is-entering"); void art.offsetWidth; requestAnimationFrame(function(){ art.classList.add("play"); }); setTimeout(function(){ art.classList.remove("is-entering","play"); },1300); }
-  // background/panel video
-  document.querySelectorAll("video").forEach(function(v){ try{ if(reduce){v.pause();} else { var p=v.play(); if(p&&p.catch) p.catch(function(){}); } }catch(e){} });
+  // background/panel video — force muted play for mobile autoplay + first-gesture fallback
+  function playAllVideos(){ document.querySelectorAll("video").forEach(function(v){ try{ if(reduce){v.pause();return;} v.muted=true; v.setAttribute("muted",""); v.playsInline=true; v.setAttribute("playsinline",""); var p=v.play(); if(p&&p.catch) p.catch(function(){}); }catch(e){} }); }
+  playAllVideos();
+  var _vk=false, kick=function(){ if(_vk)return; _vk=true; playAllVideos(); };
+  window.addEventListener("touchstart", kick, {once:true, passive:true});
+  window.addEventListener("pointerdown", kick, {once:true, passive:true});
   // demo forms
   function on(id,h){ var f=document.getElementById(id); if(f) f.addEventListener("submit",h); }
   on("newsForm", function(e){ e.preventDefault(); var em=document.getElementById("news-email"); if(!em.value||em.value.indexOf("@")===-1){em.focus();return;} document.getElementById("newsForm").hidden=true; document.getElementById("newsOk").hidden=false; });
