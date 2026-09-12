@@ -495,13 +495,13 @@
   .mobile-menu a.mm-sub{font-size:clamp(1.1rem,5.2vw,1.65rem);color:var(--ash);padding-left:1.6rem}
   .mobile-menu a.mm-sub:hover,.mobile-menu a.mm-sub.active{color:var(--accent)}
   /* phero video hero */
-  .phero--video{position:relative;min-height:clamp(460px,74svh,700px);display:flex;flex-direction:column;justify-content:flex-end;padding-top:calc(72px + clamp(1rem,4vh,2.4rem));padding-bottom:clamp(2rem,6vh,3.6rem)}
-  .phero--video .phero__bg{position:absolute;inset:0;z-index:0;overflow:hidden;background:#000}
-  .phero--video .phero__bg .fill{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
-  .phero--video .phero__scrim{position:absolute;inset:0;z-index:1;background:
+  .phero--video,.phero--media{position:relative;min-height:clamp(460px,74svh,700px);display:flex;flex-direction:column;justify-content:flex-end;padding-top:calc(72px + clamp(1rem,4vh,2.4rem));padding-bottom:clamp(2rem,6vh,3.6rem)}
+  .phero--video .phero__bg,.phero--media .phero__bg{position:absolute;inset:0;z-index:0;overflow:hidden;background:#000}
+  .phero--video .phero__bg .fill,.phero--media .phero__bg .fill{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+  .phero--video .phero__scrim,.phero--media .phero__scrim{position:absolute;inset:0;z-index:1;background:
     linear-gradient(180deg, color-mix(in srgb,var(--void) 66%, transparent), color-mix(in srgb,var(--void) 20%, transparent) 42%, color-mix(in srgb,var(--void) 92%, transparent)),
     radial-gradient(120% 82% at 50% 118%, color-mix(in srgb,var(--glow) 34%, transparent), transparent 60%)}
-  .phero--video .phero__inner{position:relative;z-index:2;width:100%;max-width:var(--wrap);margin-inline:auto;padding-inline:var(--gutter);display:flex;flex-direction:column;align-items:flex-start}
+  .phero--video .phero__inner,.phero--media .phero__inner{position:relative;z-index:2;width:100%;max-width:var(--wrap);margin-inline:auto;padding-inline:var(--gutter);display:flex;flex-direction:column;align-items:flex-start}
 </style>
 </head>
 <body>
@@ -555,10 +555,16 @@
 
 <main>
 <article class="page" id="page-events">
-  <section class="phero wrap">
+  <section class="phero phero--media">
+    <div class="phero__bg" aria-hidden="true">
+      <img class="fill" src="img/ev-dj-brix.webp" alt="" decoding="async">
+      <span class="phero__scrim"></span>
+    </div>
+    <div class="phero__inner">
     <span class="eyebrow" data-reveal>What's On</span>
     <h1 data-reveal style="--d:40ms">Live music<br>&amp; nights</h1>
     <p class="lead" data-reveal style="--d:80ms">Music runs through everything at BRIX — every Sunday and plenty in between. Here's what's coming up.</p>
+    </div>
   </section>
 
   <section class="wrap">
@@ -570,7 +576,7 @@
           <p data-reveal style="--d:80ms">Our Sunday sessions run alongside the “Best in SE1” roast — live sets from 2pm, no ticket, just book a table and stay for the music.</p>
           <a class="btn" href="https://www.brixldn.com/bookings" target="_blank" rel="noopener" data-reveal style="--d:120ms">Book Sunday <span class="arw">→</span></a>
         </div>
-        <div class="slot band has-media" data-reveal style="--d:100ms"><img class="fill" src="img/ev-live.webp" alt="A live set to a packed room at BRIX" loading="lazy"></div>
+        <div class="slot band has-media" data-reveal style="--d:100ms"><img class="fill" decoding="async" src="img/ev-live.webp" alt="A live set to a packed room at BRIX" loading="lazy"></div>
       </div>
     </div>
 
@@ -580,7 +586,7 @@
     </div>
     <div class="offer-grid offer-grid--3">
       <div class="offer" data-reveal style="min-height:auto">
-        <span class="slot has-media" style="min-height:150px"><img class="fill" src="img/ev-dj-decks.webp" alt="A DJ on the decks" loading="lazy"></span>
+        <span class="slot has-media" style="min-height:150px"><img class="fill" decoding="async" src="img/ev-dj-decks.webp" alt="A DJ on the decks" loading="lazy"></span>
         <span class="offer__body">
           <span class="mono mono-accent">Every Sunday · 14:00</span>
           <h3 style="font-size:1.5rem;margin-top:.6rem">Vinyl Sundays</h3>
@@ -588,7 +594,7 @@
         </span>
       </div>
       <div class="offer" data-reveal style="--d:60ms;min-height:auto">
-        <span class="slot has-media" style="min-height:150px"><img class="fill" src="img/fire.webp" alt="The fire grill" loading="lazy"></span>
+        <span class="slot has-media" style="min-height:150px"><img class="fill" decoding="async" src="img/fire.webp" alt="The fire grill" loading="lazy"></span>
         <span class="offer__body">
           <span class="mono mono-accent">Monthly · Thursdays</span>
           <h3 style="font-size:1.5rem;margin-top:.6rem">Fire &amp; Feast</h3>
@@ -596,7 +602,7 @@
         </span>
       </div>
       <div class="offer" data-reveal style="--d:120ms;min-height:auto">
-        <span class="slot has-media" style="min-height:150px"><img class="fill" src="img/ev-dj-green.webp" alt="A late DJ set in the basement" loading="lazy"></span>
+        <span class="slot has-media" style="min-height:150px"><img class="fill" decoding="async" src="img/ev-dj-green.webp" alt="A late DJ set in the basement" loading="lazy"></span>
         <span class="offer__body">
           <span class="mono" style="color:var(--agave)">SIXT33N · Late</span>
           <h3 style="font-size:1.5rem;margin-top:.6rem">Agave Nights</h3>
@@ -610,14 +616,14 @@
       <span class="mono" data-reveal>Real nights — parties, launches and DJ sets across the venue</span>
     </div>
     <div class="gallery gallery--4" data-reveal>
-      <span class="slot sq has-media"><img class="fill" src="img/ev-full.webp" alt="The venue packed for an event" loading="lazy"></span>
-      <span class="slot sq has-media"><img class="fill" src="img/ev-dj-brix.webp" alt="A DJ under the BRIX sign" loading="lazy"></span>
-      <span class="slot sq has-media"><img class="fill" src="img/ev-group-a.webp" alt="Guests by the SIXT33N wall" loading="lazy"></span>
-      <span class="slot sq has-media"><img class="fill" src="img/ev-floor.webp" alt="A full dancefloor" loading="lazy"></span>
-      <span class="slot sq has-media"><img class="fill" src="img/ev-mic.webp" alt="Live on the mic" loading="lazy"></span>
-      <span class="slot sq has-media"><img class="fill" src="img/ev-group-b.webp" alt="Friends in the lounge" loading="lazy"></span>
-      <span class="slot sq has-media"><img class="fill" src="img/ev-dj-green.webp" alt="The booth in full flow" loading="lazy"></span>
-      <span class="slot sq has-media"><img class="fill" src="img/ev-dark.webp" alt="Late on the floor" loading="lazy"></span>
+      <span class="slot sq has-media"><img class="fill" decoding="async" src="img/ev-full.webp" alt="The venue packed for an event" loading="lazy"></span>
+      <span class="slot sq has-media"><img class="fill" decoding="async" src="img/ev-dj-brix.webp" alt="A DJ under the BRIX sign" loading="lazy"></span>
+      <span class="slot sq has-media"><img class="fill" decoding="async" src="img/ev-group-a.webp" alt="Guests by the SIXT33N wall" loading="lazy"></span>
+      <span class="slot sq has-media"><img class="fill" decoding="async" src="img/ev-floor.webp" alt="A full dancefloor" loading="lazy"></span>
+      <span class="slot sq has-media"><img class="fill" decoding="async" src="img/ev-mic.webp" alt="Live on the mic" loading="lazy"></span>
+      <span class="slot sq has-media"><img class="fill" decoding="async" src="img/ev-group-b.webp" alt="Friends in the lounge" loading="lazy"></span>
+      <span class="slot sq has-media"><img class="fill" decoding="async" src="img/ev-dj-green.webp" alt="The booth in full flow" loading="lazy"></span>
+      <span class="slot sq has-media"><img class="fill" decoding="async" src="img/ev-dark.webp" alt="Late on the floor" loading="lazy"></span>
     </div>
 
     <div class="strip" style="margin-top:clamp(2rem,4vw,3.4rem)">

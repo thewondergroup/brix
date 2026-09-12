@@ -495,13 +495,13 @@
   .mobile-menu a.mm-sub{font-size:clamp(1.1rem,5.2vw,1.65rem);color:var(--ash);padding-left:1.6rem}
   .mobile-menu a.mm-sub:hover,.mobile-menu a.mm-sub.active{color:var(--accent)}
   /* phero video hero */
-  .phero--video{position:relative;min-height:clamp(460px,74svh,700px);display:flex;flex-direction:column;justify-content:flex-end;padding-top:calc(72px + clamp(1rem,4vh,2.4rem));padding-bottom:clamp(2rem,6vh,3.6rem)}
-  .phero--video .phero__bg{position:absolute;inset:0;z-index:0;overflow:hidden;background:#000}
-  .phero--video .phero__bg .fill{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
-  .phero--video .phero__scrim{position:absolute;inset:0;z-index:1;background:
+  .phero--video,.phero--media{position:relative;min-height:clamp(460px,74svh,700px);display:flex;flex-direction:column;justify-content:flex-end;padding-top:calc(72px + clamp(1rem,4vh,2.4rem));padding-bottom:clamp(2rem,6vh,3.6rem)}
+  .phero--video .phero__bg,.phero--media .phero__bg{position:absolute;inset:0;z-index:0;overflow:hidden;background:#000}
+  .phero--video .phero__bg .fill,.phero--media .phero__bg .fill{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+  .phero--video .phero__scrim,.phero--media .phero__scrim{position:absolute;inset:0;z-index:1;background:
     linear-gradient(180deg, color-mix(in srgb,var(--void) 66%, transparent), color-mix(in srgb,var(--void) 20%, transparent) 42%, color-mix(in srgb,var(--void) 92%, transparent)),
     radial-gradient(120% 82% at 50% 118%, color-mix(in srgb,var(--glow) 34%, transparent), transparent 60%)}
-  .phero--video .phero__inner{position:relative;z-index:2;width:100%;max-width:var(--wrap);margin-inline:auto;padding-inline:var(--gutter);display:flex;flex-direction:column;align-items:flex-start}
+  .phero--video .phero__inner,.phero--media .phero__inner{position:relative;z-index:2;width:100%;max-width:var(--wrap);margin-inline:auto;padding-inline:var(--gutter);display:flex;flex-direction:column;align-items:flex-start}
 </style>
 </head>
 <body>
@@ -555,19 +555,27 @@
 
 <main>
 <article class="page" id="page-restaurant">
-  <section class="phero wrap">
+  <section class="phero phero--video">
+    <div class="phero__bg" aria-hidden="true">
+      <video class="fill" autoplay muted loop playsinline preload="metadata" poster="img/fire-poster.webp">
+        <source src="vid/fire.mp4" type="video/mp4">
+      </video>
+      <span class="phero__scrim"></span>
+    </div>
+    <div class="phero__inner">
     <span class="eyebrow" data-reveal>The Restaurant</span>
     <h1 data-reveal style="--d:40ms">Fire-based<br>kitchen</h1>
     <p class="lead" data-reveal style="--d:80ms">Bold, smoky and stripped back. Small plates and sharing boards built around live fire — smoke, char and salt, and not much else in the way.</p>
     <div class="kicker mono" data-reveal style="--d:120ms">
       <span>Head Chef · Jake Newman</span><span>Small Plates · Sharing Boards</span><span>Bar · Bespoke Cocktails</span>
     </div>
+    </div>
   </section>
 
   <section class="wrap">
     <div class="split narrow-first">
       <div class="slot tall has-media" data-reveal>
-        <img class="fill" src="img/chef.webp" alt="Chef plating a dish at the pass" loading="lazy">
+        <img class="fill" decoding="async" src="img/chef.webp" alt="Chef plating a dish at the pass" loading="lazy">
       </div>
       <div class="stack-sm">
         <span class="eyebrow" data-reveal>Texas Fire · British Coast</span>
@@ -591,10 +599,10 @@
         </video>
       </div>
       <div class="gallery gallery--2" data-reveal style="--d:80ms">
-        <span class="slot sq has-media"><img class="fill" src="img/plate-marrow.webp" alt="Bone marrow with grilled bread" loading="lazy"></span>
-        <span class="slot sq has-media"><img class="fill" src="img/plate-padron.webp" alt="Fire-roasted padrón peppers" loading="lazy"></span>
-        <span class="slot sq has-media"><img class="fill" src="img/plate-mackerel.webp" alt="Grilled mackerel" loading="lazy"></span>
-        <span class="slot sq has-media"><img class="fill" src="img/board.webp" alt="A BRIX sharing board" loading="lazy"></span>
+        <span class="slot sq has-media"><img class="fill" decoding="async" src="img/plate-marrow.webp" alt="Bone marrow with grilled bread" loading="lazy"></span>
+        <span class="slot sq has-media"><img class="fill" decoding="async" src="img/plate-padron.webp" alt="Fire-roasted padrón peppers" loading="lazy"></span>
+        <span class="slot sq has-media"><img class="fill" decoding="async" src="img/plate-mackerel.webp" alt="Grilled mackerel" loading="lazy"></span>
+        <span class="slot sq has-media"><img class="fill" decoding="async" src="img/board.webp" alt="A BRIX sharing board" loading="lazy"></span>
       </div>
     </div>
   </section>
@@ -612,7 +620,7 @@
             <a class="btn btn--ghost" href="sixt33n.html">Visit SIXT33N <span class="arw">↓</span></a>
           </div>
         </div>
-        <div class="slot band has-media" data-reveal style="--d:100ms"><img class="fill" src="img/bartender.webp" alt="A bartender mixing a cocktail" loading="lazy"></div>
+        <div class="slot band has-media" data-reveal style="--d:100ms"><img class="fill" decoding="async" src="img/bartender.webp" alt="A bartender mixing a cocktail" loading="lazy"></div>
       </div>
     </div>
   </section>

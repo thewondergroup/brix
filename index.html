@@ -495,13 +495,13 @@
   .mobile-menu a.mm-sub{font-size:clamp(1.1rem,5.2vw,1.65rem);color:var(--ash);padding-left:1.6rem}
   .mobile-menu a.mm-sub:hover,.mobile-menu a.mm-sub.active{color:var(--accent)}
   /* phero video hero */
-  .phero--video{position:relative;min-height:clamp(460px,74svh,700px);display:flex;flex-direction:column;justify-content:flex-end;padding-top:calc(72px + clamp(1rem,4vh,2.4rem));padding-bottom:clamp(2rem,6vh,3.6rem)}
-  .phero--video .phero__bg{position:absolute;inset:0;z-index:0;overflow:hidden;background:#000}
-  .phero--video .phero__bg .fill{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
-  .phero--video .phero__scrim{position:absolute;inset:0;z-index:1;background:
+  .phero--video,.phero--media{position:relative;min-height:clamp(460px,74svh,700px);display:flex;flex-direction:column;justify-content:flex-end;padding-top:calc(72px + clamp(1rem,4vh,2.4rem));padding-bottom:clamp(2rem,6vh,3.6rem)}
+  .phero--video .phero__bg,.phero--media .phero__bg{position:absolute;inset:0;z-index:0;overflow:hidden;background:#000}
+  .phero--video .phero__bg .fill,.phero--media .phero__bg .fill{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+  .phero--video .phero__scrim,.phero--media .phero__scrim{position:absolute;inset:0;z-index:1;background:
     linear-gradient(180deg, color-mix(in srgb,var(--void) 66%, transparent), color-mix(in srgb,var(--void) 20%, transparent) 42%, color-mix(in srgb,var(--void) 92%, transparent)),
     radial-gradient(120% 82% at 50% 118%, color-mix(in srgb,var(--glow) 34%, transparent), transparent 60%)}
-  .phero--video .phero__inner{position:relative;z-index:2;width:100%;max-width:var(--wrap);margin-inline:auto;padding-inline:var(--gutter);display:flex;flex-direction:column;align-items:flex-start}
+  .phero--video .phero__inner,.phero--media .phero__inner{position:relative;z-index:2;width:100%;max-width:var(--wrap);margin-inline:auto;padding-inline:var(--gutter);display:flex;flex-direction:column;align-items:flex-start}
 </style>
 </head>
 <body>
@@ -601,7 +601,7 @@
         <a class="textlink" href="restaurant.html" data-reveal style="--d:160ms">Meet the kitchen <span class="arw">↗</span></a>
       </div>
       <div class="slot tall has-media" data-reveal style="--d:100ms">
-        <img class="fill" src="img/venue-main.webp" alt="Inside the BRIX warehouse" loading="lazy">
+        <img class="fill" decoding="async" src="img/venue-main.webp" alt="Inside the BRIX warehouse" loading="lazy">
       </div>
     </div>
   </section>
@@ -625,7 +625,7 @@
     <div class="offer-grid">
       <a class="offer" href="restaurant.html" data-reveal>
         <span class="offer__num">01</span>
-        <span class="slot has-media"><img class="fill" src="img/offer-restaurant.webp" alt="A fire-grilled sharing board" loading="lazy"></span>
+        <span class="slot has-media"><img class="fill" decoding="async" src="img/offer-restaurant.webp" alt="A fire-grilled sharing board" loading="lazy"></span>
         <span class="offer__body">
           <h3>The Restaurant</h3>
           <p>Bold, fire-based, smoky small plates and sharing boards — smoke, char and salt from Head Chef Jake Newman.</p>
@@ -634,7 +634,7 @@
       </a>
       <a class="offer" href="roast.html" data-reveal style="--d:60ms">
         <span class="offer__num">02</span>
-        <span class="slot has-media"><img class="fill" src="img/offer-roast.webp" alt="A BRIX Sunday roast" loading="lazy"></span>
+        <span class="slot has-media"><img class="fill" decoding="async" src="img/offer-roast.webp" alt="A BRIX Sunday roast" loading="lazy"></span>
         <span class="offer__body">
           <h3>The Sunday Roast</h3>
           <p>Voted “Best in SE1” by GQ. Dry-aged beef, bone-marrow Yorkshires and live music every Sunday.</p>
@@ -643,7 +643,7 @@
       </a>
       <a class="offer" href="sixt33n.html" data-reveal style="--d:120ms">
         <span class="offer__num">03</span>
-        <span class="slot has-media"><img class="fill" src="img/offer-sixt33n.webp" alt="The SIXT33N basement bar" loading="lazy"></span>
+        <span class="slot has-media"><img class="fill" decoding="async" src="img/offer-sixt33n.webp" alt="The SIXT33N basement bar" loading="lazy"></span>
         <span class="offer__body">
           <h3>SIXT33N</h3>
           <p>Head downstairs. A basement vinyl and agave bar — tequila, mezcal and records until late.</p>
@@ -652,7 +652,7 @@
       </a>
       <a class="offer" href="hire.html" data-reveal style="--d:180ms">
         <span class="offer__num">04</span>
-        <span class="slot has-media"><img class="fill" src="img/ev-hands.webp" alt="A packed night at BRIX" loading="lazy"></span>
+        <span class="slot has-media"><img class="fill" decoding="async" src="img/ev-hands.webp" alt="A packed night at BRIX" loading="lazy"></span>
         <span class="offer__body">
           <h3>Private Hire</h3>
           <p>Events, brand launches, private dining and corporate hire across an 8,500 sq ft warehouse in SE1.</p>
@@ -677,7 +677,7 @@
           </div>
         </div>
         <div class="slot band has-media" data-reveal style="--d:100ms">
-          <img class="fill" src="img/roast-feature.webp" alt="Pork Sunday roast with a gravy pour" loading="lazy">
+          <img class="fill" decoding="async" src="img/roast-feature.webp" alt="Pork Sunday roast with a gravy pour" loading="lazy">
         </div>
       </div>
     </div>
@@ -686,7 +686,7 @@
   <!-- sixt33n teaser -->
   <section class="wrap">
     <a class="strip" href="sixt33n.html" style="display:block" data-reveal>
-      <span class="strip__bg-wrap" aria-hidden="true"><img class="strip__bg" src="img/neon.webp" alt=""><span class="strip__glow"></span></span>
+      <span class="strip__bg-wrap" aria-hidden="true"><img class="strip__bg" decoding="async" src="img/neon.webp" alt=""><span class="strip__glow"></span></span>
       <span class="strip__inner">
         <span>
           <span class="eyebrow" style="color:var(--agave)">Downstairs · Basement</span>
@@ -713,7 +713,7 @@
         </div>
       </div>
       <div class="slot band has-media" data-reveal style="--d:100ms">
-        <img class="fill" src="img/exterior.webp" alt="The BRIX building on Great Guildford Street" loading="lazy">
+        <img class="fill" decoding="async" src="img/exterior.webp" alt="The BRIX building on Great Guildford Street" loading="lazy">
         <span class="tag">16 Great Guildford St · SE1 0HS</span>
       </div>
     </div>

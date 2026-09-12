@@ -495,13 +495,13 @@
   .mobile-menu a.mm-sub{font-size:clamp(1.1rem,5.2vw,1.65rem);color:var(--ash);padding-left:1.6rem}
   .mobile-menu a.mm-sub:hover,.mobile-menu a.mm-sub.active{color:var(--accent)}
   /* phero video hero */
-  .phero--video{position:relative;min-height:clamp(460px,74svh,700px);display:flex;flex-direction:column;justify-content:flex-end;padding-top:calc(72px + clamp(1rem,4vh,2.4rem));padding-bottom:clamp(2rem,6vh,3.6rem)}
-  .phero--video .phero__bg{position:absolute;inset:0;z-index:0;overflow:hidden;background:#000}
-  .phero--video .phero__bg .fill{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
-  .phero--video .phero__scrim{position:absolute;inset:0;z-index:1;background:
+  .phero--video,.phero--media{position:relative;min-height:clamp(460px,74svh,700px);display:flex;flex-direction:column;justify-content:flex-end;padding-top:calc(72px + clamp(1rem,4vh,2.4rem));padding-bottom:clamp(2rem,6vh,3.6rem)}
+  .phero--video .phero__bg,.phero--media .phero__bg{position:absolute;inset:0;z-index:0;overflow:hidden;background:#000}
+  .phero--video .phero__bg .fill,.phero--media .phero__bg .fill{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+  .phero--video .phero__scrim,.phero--media .phero__scrim{position:absolute;inset:0;z-index:1;background:
     linear-gradient(180deg, color-mix(in srgb,var(--void) 66%, transparent), color-mix(in srgb,var(--void) 20%, transparent) 42%, color-mix(in srgb,var(--void) 92%, transparent)),
     radial-gradient(120% 82% at 50% 118%, color-mix(in srgb,var(--glow) 34%, transparent), transparent 60%)}
-  .phero--video .phero__inner{position:relative;z-index:2;width:100%;max-width:var(--wrap);margin-inline:auto;padding-inline:var(--gutter);display:flex;flex-direction:column;align-items:flex-start}
+  .phero--video .phero__inner,.phero--media .phero__inner{position:relative;z-index:2;width:100%;max-width:var(--wrap);margin-inline:auto;padding-inline:var(--gutter);display:flex;flex-direction:column;align-items:flex-start}
 </style>
 </head>
 <body>
@@ -555,12 +555,18 @@
 
 <main>
 <article class="page" id="page-hire">
-  <section class="phero wrap">
+  <section class="phero phero--media">
+    <div class="phero__bg" aria-hidden="true">
+      <img class="fill" src="img/room-full.webp" alt="" decoding="async">
+      <span class="phero__scrim"></span>
+    </div>
+    <div class="phero__inner">
     <span class="eyebrow" data-reveal>Private Hire</span>
     <h1 data-reveal style="--d:40ms">Your event,<br>under one roof</h1>
     <p class="lead" data-reveal style="--d:80ms">8,500 sq ft of raw warehouse with multiple rooms — the SE1 space for events, brand launches, private dining and corporate hire.</p>
     <div class="kicker mono" data-reveal style="--d:120ms">
       <span>Brand Launches</span><span>Private Dining</span><span>Corporate</span><span>Parties · Filming</span>
+    </div>
     </div>
   </section>
 
@@ -575,7 +581,7 @@
           <span class="chip">Birthdays</span><span class="chip">Receptions</span><span class="chip">Filming &amp; shoots</span>
         </div>
       </div>
-      <div class="slot tall has-media" data-reveal style="--d:100ms"><img class="fill" src="img/hire-hero.webp" alt="A BRIX room set for a private event" loading="lazy"></div>
+      <div class="slot tall has-media" data-reveal style="--d:100ms"><img class="fill" decoding="async" src="img/hire-hero.webp" alt="A BRIX room set for a private event" loading="lazy"></div>
     </div>
   </section>
 
@@ -586,7 +592,7 @@
     </div>
     <div class="spaces">
       <div class="space" data-reveal>
-        <span class="slot wide has-media"><img class="fill" src="img/venue-main.webp" alt="The main warehouse room" loading="lazy"></span>
+        <span class="slot wide has-media"><img class="fill" decoding="async" src="img/venue-main.webp" alt="The main warehouse room" loading="lazy"></span>
         <div class="space__body">
           <h3>The Warehouse</h3>
           <p style="color:var(--ash);max-width:40ch">The main room — brick, steel and long tables. The heart of the venue for launches and large dinners.</p>
@@ -596,7 +602,7 @@
         </div>
       </div>
       <div class="space" data-reveal style="--d:60ms">
-        <span class="slot wide has-media"><img class="fill" src="img/lounge.webp" alt="The mezzanine lounge" loading="lazy"></span>
+        <span class="slot wide has-media"><img class="fill" decoding="async" src="img/lounge.webp" alt="The mezzanine lounge" loading="lazy"></span>
         <div class="space__body">
           <h3>The Mezzanine</h3>
           <p style="color:var(--ash);max-width:40ch">A raised, semi-private level overlooking the floor — ideal for receptions and breakout dining.</p>
@@ -606,7 +612,7 @@
         </div>
       </div>
       <div class="space" data-reveal style="--d:120ms">
-        <span class="slot wide has-media"><img class="fill" src="img/sixt33n-lounge.webp" alt="SIXT33N as a private space" loading="lazy"></span>
+        <span class="slot wide has-media"><img class="fill" decoding="async" src="img/sixt33n-lounge.webp" alt="SIXT33N as a private space" loading="lazy"></span>
         <div class="space__body">
           <h3>SIXT33N Basement</h3>
           <p style="color:var(--ash);max-width:40ch">The vinyl and agave bar as a private space — low light, records and a dedicated bar for after-dark events.</p>
@@ -616,7 +622,7 @@
         </div>
       </div>
       <div class="space" data-reveal style="--d:180ms">
-        <span class="slot wide has-media"><img class="fill" src="img/ev-full.webp" alt="The full venue packed for a party" loading="lazy"></span>
+        <span class="slot wide has-media"><img class="fill" decoding="async" src="img/ev-full.webp" alt="The full venue packed for a party" loading="lazy"></span>
         <div class="space__body">
           <h3>The Full Venue</h3>
           <p style="color:var(--ash);max-width:40ch">Take the lot — both floors, all bars, the kitchen and SIXT33N — for exclusive-use launches and takeovers.</p>
