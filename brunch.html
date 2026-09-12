@@ -394,7 +394,8 @@
   }
   @media(max-width:1080px){
     .nav-links{display:none}
-    .nav-cta{display:none}
+    .nav-cta{display:flex;margin-left:auto}
+    .nav-cta .btn{padding:.72em 1em;font-size:.7rem;letter-spacing:.1em}
     .burger{display:flex}
   }
   @media(max-width:900px){
@@ -416,7 +417,7 @@
     .foot-top{grid-template-columns:1fr}
     .specs{grid-template-columns:1fr}
     .perks{grid-template-columns:1fr}
-    .nav-cta{display:none}
+    .nav-cta .btn .arw{display:none}
     .hero{min-height:auto}
   }
   @media (prefers-reduced-motion:reduce){
@@ -475,6 +476,32 @@
   .menu-served{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.05em;text-transform:uppercase;color:var(--ash);border-left:2px solid var(--accent);padding-left:.9rem;margin:0 0 1.4rem;max-width:74ch;line-height:1.7}
   .mi.ck{grid-template-columns:1fr}
   .mi .ck-note{font-family:var(--font-mono);font-size:.7rem;color:var(--accent);margin-top:.45rem;letter-spacing:.02em;line-height:1.5}
+  /* nav dropdown */
+  .nav-drop{position:relative;display:flex;align-items:center}
+  .nav-drop__toggle{display:inline-flex;align-items:center;gap:.35em}
+  .nav-drop .caret{font-size:.7em;color:var(--accent);transition:transform .25s}
+  .nav-drop:hover .caret,.nav-drop:focus-within .caret{transform:rotate(180deg)}
+  .nav-drop__panel{position:absolute;top:calc(100% + .55rem);left:50%;transform:translateX(-50%) translateY(6px);
+    display:flex;flex-direction:column;min-width:186px;background:color-mix(in srgb,var(--void) 96%, transparent);
+    backdrop-filter:blur(14px) saturate(120%);border:1px solid var(--line-strong);padding:.45rem;gap:.05rem;
+    opacity:0;visibility:hidden;transition:opacity .22s ease,transform .22s ease;z-index:60}
+  .nav-drop:hover .nav-drop__panel,.nav-drop:focus-within .nav-drop__panel{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+  .nav-drop__panel a{font-family:var(--font-head);font-weight:600;font-size:.76rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ash);padding:.72em .95em}
+  .nav-drop__panel a:hover{color:var(--bone);background:color-mix(in srgb,var(--bone) 6%, transparent)}
+  .nav-drop__panel a.active{color:var(--accent)}
+  .nav-drop__panel a::after{display:none}
+  .nav-drop__panel::before{content:"";position:absolute;left:0;right:0;top:-.7rem;height:.7rem}
+  /* mobile submenu */
+  .mobile-menu a.mm-sub{font-size:clamp(1.1rem,5.2vw,1.65rem);color:var(--ash);padding-left:1.6rem}
+  .mobile-menu a.mm-sub:hover,.mobile-menu a.mm-sub.active{color:var(--accent)}
+  /* phero video hero */
+  .phero--video{position:relative;min-height:clamp(460px,74svh,700px);display:flex;flex-direction:column;justify-content:flex-end;padding-top:calc(72px + clamp(1rem,4vh,2.4rem));padding-bottom:clamp(2rem,6vh,3.6rem)}
+  .phero--video .phero__bg{position:absolute;inset:0;z-index:0;overflow:hidden;background:#000}
+  .phero--video .phero__bg .fill{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+  .phero--video .phero__scrim{position:absolute;inset:0;z-index:1;background:
+    linear-gradient(180deg, color-mix(in srgb,var(--void) 66%, transparent), color-mix(in srgb,var(--void) 20%, transparent) 42%, color-mix(in srgb,var(--void) 92%, transparent)),
+    radial-gradient(120% 82% at 50% 118%, color-mix(in srgb,var(--glow) 34%, transparent), transparent 60%)}
+  .phero--video .phero__inner{position:relative;z-index:2;width:100%;max-width:var(--wrap);margin-inline:auto;padding-inline:var(--gutter);display:flex;flex-direction:column;align-items:flex-start}
 </style>
 </head>
 <body>
@@ -489,7 +516,15 @@
     <a href="restaurant.html">Restaurant</a>
     <a href="sixt33n.html">SIXT33N</a>
     <a href="hire.html">Hire</a>
-    <a href="menu.html">Menu</a>
+    <div class="nav-drop">
+      <a href="menu.html" class="nav-drop__toggle active">Menu <span class="caret" aria-hidden="true">▾</span></a>
+      <div class="nav-drop__panel">
+        <a href="menu.html">Main menu</a>
+        <a href="roast.html">Sunday Roast</a>
+        <a href="brunch.html" class="active">Brunch</a>
+        <a href="cocktails.html">Cocktails</a>
+      </div>
+    </div>
     <a href="events.html">Events</a>
     <a href="membership.html">Membership</a>
     <a href="contact.html">Contact</a>
@@ -506,6 +541,9 @@
   <a href="sixt33n.html"><span class="idx">02</span>SIXT33N</a>
   <a href="hire.html"><span class="idx">03</span>Private Hire</a>
   <a href="menu.html"><span class="idx">04</span>Menu</a>
+  <a href="roast.html" class="mm-sub">Sunday Roast</a>
+  <a href="brunch.html" class="mm-sub active">Brunch</a>
+  <a href="cocktails.html" class="mm-sub">Cocktails</a>
   <a href="events.html"><span class="idx">05</span>Events</a>
   <a href="membership.html"><span class="idx">06</span>Membership</a>
   <a href="contact.html"><span class="idx">07</span>Contact</a>
@@ -517,12 +555,20 @@
 
 <main>
 <article class="page" id="page-brunch">
-  <section class="phero wrap">
-    <span class="eyebrow" data-reveal>Breakfast &amp; Brunch</span>
-    <h1 data-reveal style="--d:40ms">Breakfast<br>&amp; brunch</h1>
-    <p class="lead" data-reveal style="--d:80ms">Flame-grilled, New York–inspired. Every Saturday &amp; Sunday, 10am–2:30pm.</p>
-    <div class="kicker mono" data-reveal style="--d:120ms">
-      <span class="mono-accent">Sat &amp; Sun · 10am–2:30pm</span><span>Weekends only</span>
+  <section class="phero phero--video">
+    <div class="phero__bg" aria-hidden="true">
+      <video class="fill" autoplay muted loop playsinline preload="auto" poster="img/brunch-hero-poster.webp">
+        <source src="vid/brunch.mp4" type="video/mp4">
+      </video>
+      <span class="phero__scrim"></span>
+    </div>
+    <div class="phero__inner">
+      <span class="eyebrow" data-reveal>Breakfast &amp; Brunch</span>
+      <h1 data-reveal style="--d:40ms">Breakfast<br>&amp; brunch</h1>
+      <p class="lead" data-reveal style="--d:80ms">Flame-grilled, New York–inspired. Every Saturday &amp; Sunday, 10am–2:30pm.</p>
+      <div class="kicker mono" data-reveal style="--d:120ms">
+        <span class="mono-accent">Sat &amp; Sun · 10am–2:30pm</span><span>Weekends only</span>
+      </div>
     </div>
   </section>
 
