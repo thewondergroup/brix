@@ -2,9 +2,11 @@
 
 Static multi-page site for **BRIX London Bridge**. Plain HTML/CSS/JS, no build step.
 
-## Pages
-`index.html` (home), `restaurant.html`, `sixt33n.html`, `hire.html`, `menu.html`, `roast.html`,
-`brunch.html`, `cocktails.html`, `events.html`, `membership.html`, `contact.html`.
+## Pages & clean URLs
+The files are `index.html`, `restaurant.html`, `sixt33n.html`, `hire.html`, `menu.html`, `roast.html`,
+`brunch.html`, `cocktails.html`, `events.html`, `membership.html`, `contact.html` — but every link in the
+site is a clean root path (`/restaurant`, `/menu`, …). GitHub Pages serves `/restaurant` from `restaurant.html`
+automatically, so the live URLs are `brixldn.com/restaurant` etc. with no `.html`. Keep the files at the repo root.
 Shared assets: `img/` (photos), `vid/` (background loops), `favicon.png`, `apple-touch-icon.png`, `og.jpg`.
 `.nojekyll` tells GitHub Pages to serve files as-is.
 
