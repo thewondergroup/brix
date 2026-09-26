@@ -17,7 +17,7 @@
 <title>Restaurant — BRIX London Bridge</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;700;800;900&family=Barlow:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;700;800;900&family=Barlow:wght@300;400;500;600&family=Space+Mono:wght@400;700&family=Julius+Sans+One&display=swap">
 <style>
   /* ============================================================
      BRIX — committed dark "fire in a warehouse" identity.
@@ -379,6 +379,11 @@
   .foot-bottom{display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem;padding-block:1.5rem;border-top:1px solid var(--line)}
   .foot-bottom .mono{color:var(--ash-dim)}
   .foot-bottom a.mono:hover{color:var(--accent)}
+  .credit{display:inline-flex;align-items:center;gap:.55rem;text-decoration:none;color:var(--ash-dim)}
+  .credit-logo{height:15px;width:auto;display:block;opacity:.85;transition:opacity .2s}
+  .credit-name{font-family:"Julius Sans One",var(--font-head),sans-serif;font-size:.8rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ash);transition:color .2s}
+  .credit:hover .credit-name{color:#B8A26D}
+  .credit:hover .credit-logo{opacity:1}
   .socials{display:flex;gap:1.2rem}
 
   /* ---------- reveal (rests visible; JS replays a gentle rise) ---------- */
@@ -505,6 +510,19 @@
     linear-gradient(180deg, color-mix(in srgb,var(--void) 66%, transparent), color-mix(in srgb,var(--void) 20%, transparent) 42%, color-mix(in srgb,var(--void) 92%, transparent)),
     radial-gradient(120% 82% at 50% 118%, color-mix(in srgb,var(--glow) 34%, transparent), transparent 60%)}
   .phero--video .phero__inner,.phero--media .phero__inner{position:relative;z-index:2;width:100%;max-width:var(--wrap);margin-inline:auto;padding-inline:var(--gutter);display:flex;flex-direction:column;align-items:flex-start}
+  /* private hire venue tour (sound-on player) */
+  .tour{position:relative;aspect-ratio:16/9;background:#000;border:1px solid var(--line);overflow:hidden}
+  .tour__video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;background:#000}
+  .tour.is-playing .tour__video{object-fit:contain}
+  .tour__play{position:absolute;inset:0;z-index:2;width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.2rem;
+    border:0;padding:0;color:var(--bone);cursor:pointer;
+    background:radial-gradient(60% 70% at 50% 50%, color-mix(in srgb,var(--pitch) 35%, transparent), color-mix(in srgb,var(--pitch) 55%, transparent))}
+  .tour__icon{width:clamp(66px,8vw,96px);aspect-ratio:1/1;border-radius:50%;background:var(--accent);display:grid;place-items:center;
+    box-shadow:0 0 0 10px color-mix(in srgb,var(--accent) 22%, transparent);transition:transform .3s ease,background .3s ease}
+  .tour__icon::before{content:"";border-style:solid;border-width:13px 0 13px 22px;border-color:transparent transparent transparent var(--pitch);margin-left:6px}
+  .tour__play:hover .tour__icon,.tour__play:focus-visible .tour__icon{transform:scale(1.07);background:var(--accent-hi)}
+  .tour__play .mono{color:var(--bone);text-shadow:0 1px 12px rgba(0,0,0,.6)}
+  .tour.is-playing .tour__play{display:none}
 </style>
 </head>
 <body>
@@ -602,10 +620,10 @@
         </video>
       </div>
       <div class="gallery gallery--2" data-reveal style="--d:80ms">
-        <span class="slot sq has-media"><img class="fill" decoding="async" src="img/plate-marrow.webp" alt="Bone marrow with grilled bread" loading="lazy"></span>
-        <span class="slot sq has-media"><img class="fill" decoding="async" src="img/plate-padron.webp" alt="Fire-roasted padrón peppers" loading="lazy"></span>
-        <span class="slot sq has-media"><img class="fill" decoding="async" src="img/plate-mackerel.webp" alt="Grilled mackerel" loading="lazy"></span>
-        <span class="slot sq has-media"><img class="fill" decoding="async" src="img/board.webp" alt="A BRIX sharing board" loading="lazy"></span>
+        <span class="slot sq has-media"><img class="fill" decoding="async" src="img/rest-cabbage.webp" alt="Grilled hispi cabbage with garlic, chilli and romesco" loading="lazy" style="object-position:50% 62%"></span>
+        <span class="slot sq has-media"><img class="fill" decoding="async" src="img/rest-toffee.webp" alt="Sticky toffee pudding with vanilla ice cream" loading="lazy" style="object-position:50% 56%"></span>
+        <span class="slot sq has-media"><img class="fill" decoding="async" src="img/rest-mackerel.webp" alt="Charred smoked mackerel with basil and apple" loading="lazy" style="object-position:50% 50%"></span>
+        <span class="slot sq has-media"><img class="fill" decoding="async" src="img/rest-board.webp" alt="The BRIX Board — short rib, bavette, merguez, padrón peppers, chimichurri and a dry-aged cheeseburger" loading="lazy" style="object-position:50% 38%"></span>
       </div>
     </div>
   </section>
@@ -689,7 +707,7 @@
         <a class="mono" href="https://tiktok.com/@brix_ldn" target="_blank" rel="noopener">TikTok</a>
         <a class="mono" href="https://facebook.com/BRIXLDN" target="_blank" rel="noopener">Facebook</a>
       </div>
-      <span class="mono">Site by The Wonder Agency</span>
+      <a class="credit" href="https://thewonderagency.co" target="_blank" rel="noopener" aria-label="Site by The Wonder Agency"><span class="mono">Site by</span><img class="credit-logo" src="data:image/png;base64,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" alt="" width="68" height="40"><span class="credit-name">The Wonder Agency</span></a>
     </div>
   </div>
 </footer>
@@ -717,11 +735,13 @@
   var art=document.querySelector(".page");
   if(art && !reduce){ art.classList.add("is-entering"); void art.offsetWidth; requestAnimationFrame(function(){ art.classList.add("play"); }); setTimeout(function(){ art.classList.remove("is-entering","play"); },1300); }
   // background/panel video — force muted play for mobile autoplay + first-gesture fallback
-  function playAllVideos(){ document.querySelectorAll("video").forEach(function(v){ try{ if(reduce){v.pause();return;} v.muted=true; v.setAttribute("muted",""); v.playsInline=true; v.setAttribute("playsinline",""); var p=v.play(); if(p&&p.catch) p.catch(function(){}); }catch(e){} }); }
+  function playAllVideos(){ document.querySelectorAll("video:not(.tour__video)").forEach(function(v){ try{ if(reduce){v.pause();return;} v.muted=true; v.setAttribute("muted",""); v.playsInline=true; v.setAttribute("playsinline",""); var p=v.play(); if(p&&p.catch) p.catch(function(){}); }catch(e){} }); }
   playAllVideos();
   var _vk=false, kick=function(){ if(_vk)return; _vk=true; playAllVideos(); };
   window.addEventListener("touchstart", kick, {once:true, passive:true});
   window.addEventListener("pointerdown", kick, {once:true, passive:true});
+  // venue tour: click-to-play with sound
+  document.querySelectorAll(".tour").forEach(function(t){ var v=t.querySelector("video"), b=t.querySelector(".tour__play"); if(!v||!b) return; b.addEventListener("click", function(){ v.muted=false; v.controls=true; t.classList.add("is-playing"); var p=v.play(); if(p&&p.catch) p.catch(function(){}); }); v.addEventListener("ended", function(){ v.controls=false; t.classList.remove("is-playing"); v.load(); }); });
   // demo forms
   function on(id,h){ var f=document.getElementById(id); if(f) f.addEventListener("submit",h); }
   on("newsForm", function(e){ e.preventDefault(); var em=document.getElementById("news-email"); if(!em.value||em.value.indexOf("@")===-1){em.focus();return;} document.getElementById("newsForm").hidden=true; document.getElementById("newsOk").hidden=false; });
