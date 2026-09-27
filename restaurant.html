@@ -523,6 +523,7 @@
   .tour__play:hover .tour__icon,.tour__play:focus-visible .tour__icon{transform:scale(1.07);background:var(--accent-hi)}
   .tour__play .mono{color:var(--bone);text-shadow:0 1px 12px rgba(0,0,0,.6)}
   .tour.is-playing .tour__play{display:none}
+  .hp{position:absolute!important;left:-9999px!important;width:1px;height:1px;opacity:0}
 </style>
 </head>
 <body>
@@ -693,7 +694,7 @@
       <div class="foot-col news">
         <h5>The BRIX list</h5>
         <p>Roasts, drops and event nights — first to your inbox.</p>
-        <form id="newsForm" novalidate>
+        <form id="newsForm" novalidate><input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
           <input id="news-email" type="email" name="email" placeholder="your@email.com" aria-label="Email address" required>
           <button type="submit">Join</button>
         </form>
@@ -712,6 +713,7 @@
   </div>
 </footer>
 
+<script src="/forms.js"></script>
 <script>
 (function(){
   "use strict";
@@ -742,11 +744,12 @@
   window.addEventListener("pointerdown", kick, {once:true, passive:true});
   // venue tour: click-to-play with sound
   document.querySelectorAll(".tour").forEach(function(t){ var v=t.querySelector("video"), b=t.querySelector(".tour__play"); if(!v||!b) return; b.addEventListener("click", function(){ v.muted=false; v.controls=true; t.classList.add("is-playing"); var p=v.play(); if(p&&p.catch) p.catch(function(){}); }); v.addEventListener("ended", function(){ v.controls=false; t.classList.remove("is-playing"); v.load(); }); });
-  // demo forms
+  // forms -> Google Sheet (endpoint lives in /forms.js)
+  function sendForm(kind, form){ try{ var url=window.BRIX_FORM_ENDPOINT; if(!url) return; var fd=new FormData(form); fd.append("form",kind); fd.append("page",location.pathname); fetch(url,{method:"POST",mode:"no-cors",body:new URLSearchParams(fd)}).catch(function(){}); }catch(e){} }
   function on(id,h){ var f=document.getElementById(id); if(f) f.addEventListener("submit",h); }
-  on("newsForm", function(e){ e.preventDefault(); var em=document.getElementById("news-email"); if(!em.value||em.value.indexOf("@")===-1){em.focus();return;} document.getElementById("newsForm").hidden=true; document.getElementById("newsOk").hidden=false; });
-  on("hireForm", function(e){ e.preventDefault(); var n=document.getElementById("h-name"), m=document.getElementById("h-email"); if(!n.value){n.focus();return;} if(!m.value||m.value.indexOf("@")===-1){m.focus();return;} var ok=document.createElement("div"); ok.className="form-ok"; ok.innerHTML="<b>Enquiry received</b>Thanks "+n.value.split(" ")[0].replace(/[<>]/g,"")+" \u2014 the events team will be in touch within 24 hours. <span class='mono' style='display:block;margin-top:.7rem;color:var(--ash)'>Demo form \u00b7 wire this to events@brixldn.com on the live site.</span>"; document.getElementById("hireForm").replaceWith(ok); });
-  on("joinForm", function(e){ e.preventDefault(); var fn=document.getElementById("m-first"), em=document.getElementById("m-email"); if(!fn.value){fn.focus();return;} if(!em.value||em.value.indexOf("@")===-1){em.focus();return;} var ok=document.createElement("div"); ok.className="form-ok"; ok.innerHTML="<b>You're in \u2014 welcome to the club</b>Thanks "+fn.value.split(" ")[0].replace(/[<>]/g,"")+". You'll get your member perks and the first of our weekly offers by email. <span class='mono' style='display:block;margin-top:.7rem;color:var(--ash)'>Demo form \u00b7 wire this to your mailing list on the live site.</span>"; document.getElementById("joinForm").replaceWith(ok); });
+  on("newsForm", function(e){ e.preventDefault(); var em=document.getElementById("news-email"); if(!em.value||em.value.indexOf("@")===-1){em.focus();return;} sendForm("list",document.getElementById("newsForm")); document.getElementById("newsForm").hidden=true; document.getElementById("newsOk").hidden=false; });
+  on("hireForm", function(e){ e.preventDefault(); var n=document.getElementById("h-name"), m=document.getElementById("h-email"); if(!n.value){n.focus();return;} if(!m.value||m.value.indexOf("@")===-1){m.focus();return;} sendForm("hire",document.getElementById("hireForm")); var ok=document.createElement("div"); ok.className="form-ok"; ok.innerHTML="<b>Enquiry received</b>Thanks "+n.value.split(" ")[0].replace(/[<>]/g,"")+" \u2014 the events team will be in touch within 24 hours."; document.getElementById("hireForm").replaceWith(ok); });
+  on("joinForm", function(e){ e.preventDefault(); var fn=document.getElementById("m-first"), em=document.getElementById("m-email"); if(!fn.value){fn.focus();return;} if(!em.value||em.value.indexOf("@")===-1){em.focus();return;} sendForm("member",document.getElementById("joinForm")); var ok=document.createElement("div"); ok.className="form-ok"; ok.innerHTML="<b>You're in \u2014 welcome to the club</b>Thanks "+fn.value.split(" ")[0].replace(/[<>]/g,"")+". You'll get your member perks and the first of our weekly offers by email."; document.getElementById("joinForm").replaceWith(ok); });
 })();
 </script>
 </body>
