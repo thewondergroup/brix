@@ -1,0 +1,277 @@
+/**
+ * BRIX website forms -> Google Sheet
+ * Receives the Membership, BRIX list and Private Hire forms from brixldn.com,
+ * writes each to its own tab, and emails the events team for every hire enquiry.
+ * Also serves the Events tab (filled in by the team's Google Form) to brixldn.com/events.
+ */
+
+// Who gets the private hire enquiry emails (comma-separate for more than one).
+const NOTIFY_HIRE = 'reservations@brixldn.com';
+
+const SHEETS = {
+  hire:   { name: 'Hire Enquiries', head: ['Received', 'Name', 'Email', 'Event type', 'Guests', 'Preferred date', 'Space', 'Message', 'Page'] },
+  member: { name: 'Members',        head: ['Received', 'First name', 'Last name', 'Email', 'Mobile', 'Visits', 'Marketing opt-in', 'Page'] },
+  list:   { name: 'BRIX List',      head: ['Received', 'Email', 'Page'] }
+};
+
+function doPost(e) {
+  const p = (e && e.parameter) || {};
+  if (p.website) return reply_(true);            // spam bot filled the hidden field
+  const cfg = SHEETS[p.form];
+  if (!cfg) return reply_(false);
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(p.email || '')) return reply_(false);
+
+  const lock = LockService.getScriptLock();
+  lock.waitLock(10000);
+  try {
+    const sheet = sheet_(cfg);
+    let row;
+    if (p.form === 'hire') {
+      row = [p.name, p.email, p.type, p.guests, p.date, p.space, p.message, p.page];
+    } else if (p.form === 'member') {
+      row = [p.first, p.last, p.email, p.mobile, p.visit, p.optin ? 'Yes' : 'No', p.page];
+    } else {
+      if (alreadyListed_(sheet, p.email)) return reply_(true);   // no duplicate list sign-ups
+      row = [p.email, p.page];
+    }
+    sheet.appendRow([new Date()].concat(row.map(clean_)));
+  } finally {
+    lock.releaseLock();
+  }
+
+  if (p.form === 'hire' && NOTIFY_HIRE) {
+    MailApp.sendEmail({
+      to: NOTIFY_HIRE,
+      replyTo: p.email,
+      subject: 'New private hire enquiry — ' + (p.name || 'website') + (p.guests ? ' (' + p.guests + ' guests)' : ''),
+      body:
+        'New enquiry from brixldn.com\n\n' +
+        'Name: ' + (p.name || '') + '\n' +
+        'Email: ' + (p.email || '') + '\n' +
+        'Event type: ' + (p.type || '') + '\n' +
+        'Guests: ' + (p.guests || '') + '\n' +
+        'Preferred date: ' + (p.date || '') + '\n' +
+        'Space: ' + (p.space || '') + '\n\n' +
+        (p.message || '') + '\n\n' +
+        'Reply to this email to answer them directly.'
+    });
+  }
+  if (p.form === 'hire') {
+    try { sendHireConfirmation_(p); } catch (err) { console.error(err); }
+  }
+  return reply_(true);
+}
+
+// ---------- automatic reply to the person who enquired ----------
+const REPLY_FROM_NAME = 'BRIX London Bridge';
+const REPLY_TO        = 'reservations@brixldn.com';
+
+function sendHireConfirmation_(p) {
+  const first = String(p.name || '').trim().split(/\s+/)[0] || 'there';
+  const esc = function (s) { return String(s || '').replace(/[&<>"]/g, function (c) { return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[c]; }); };
+  const rows = [
+    ['Event', p.type], ['Guests', p.guests], ['Preferred date', niceDate_(p.date)], ['Space', p.space]
+  ].filter(function (r) { return r[1]; });
+
+  const text =
+    'Hi ' + first + ',\n\n' +
+    'Thanks for your enquiry about hosting an event at BRIX. The events team has it and will be back in touch within 24 hours with spaces, availability and options.\n\n' +
+    (rows.length ? 'What you sent us:\n' + rows.map(function (r) { return r[0] + ': ' + r[1]; }).join('\n') + '\n\n' : '') +
+    'If anything changes in the meantime, just reply to this email.\n\n' +
+    'BRIX London Bridge\n16 Great Guildford Street, Bankside, London SE1 0HS\n020 3376 6408 · brixldn.com';
+
+  const html =
+    '<div style="background:#0B0A08;padding:32px 16px;font-family:Helvetica,Arial,sans-serif">' +
+    '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;margin:0 auto;background:#15120E;border:1px solid #2A241C">' +
+    '<tr><td style="padding:28px 32px 8px;font-family:Impact,\'Arial Narrow Bold\',sans-serif;font-size:30px;letter-spacing:3px;color:#EDE6D8">BRIX</td></tr>' +
+    '<tr><td style="padding:0 32px"><div style="height:2px;width:48px;background:#E4531B"></div></td></tr>' +
+    '<tr><td style="padding:22px 32px 0;color:#EDE6D8;font-size:16px;line-height:1.6">' +
+      '<p style="margin:0 0 14px">Hi ' + esc(first) + ',</p>' +
+      '<p style="margin:0 0 14px">Thanks for your enquiry about hosting an event at BRIX. The events team has it and will be back in touch <b>within 24 hours</b> with spaces, availability and options.</p>' +
+    '</td></tr>' +
+    (rows.length ?
+      '<tr><td style="padding:6px 32px 4px"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-top:1px solid #2A241C">' +
+      rows.map(function (r) {
+        return '<tr><td style="padding:10px 0;border-bottom:1px solid #2A241C;color:#A79C89;font-size:12px;letter-spacing:2px;text-transform:uppercase;font-family:Courier,monospace">' + esc(r[0]) +
+               '</td><td align="right" style="padding:10px 0;border-bottom:1px solid #2A241C;color:#EDE6D8;font-size:15px">' + esc(r[1]) + '</td></tr>';
+      }).join('') + '</table></td></tr>' : '') +
+    '<tr><td style="padding:18px 32px 0;color:#A79C89;font-size:15px;line-height:1.6">If anything changes in the meantime, just reply to this email.</td></tr>' +
+    '<tr><td style="padding:24px 32px 30px"><a href="https://brixldn.com/hire" style="display:inline-block;background:#E4531B;color:#070605;text-decoration:none;font-weight:bold;font-size:13px;letter-spacing:2px;text-transform:uppercase;padding:13px 22px">See the spaces</a></td></tr>' +
+    '<tr><td style="padding:18px 32px 26px;border-top:1px solid #2A241C;color:#6E6455;font-size:12px;line-height:1.7;font-family:Courier,monospace">' +
+      '16 Great Guildford Street · Bankside · London SE1 0HS<br>020 3376 6408 · <a href="https://brixldn.com" style="color:#A79C89">brixldn.com</a> · <a href="https://instagram.com/brix_ldn" style="color:#A79C89">@brix_ldn</a>' +
+    '</td></tr></table></div>';
+
+  MailApp.sendEmail({
+    to: p.email,
+    name: REPLY_FROM_NAME,
+    replyTo: REPLY_TO,
+    subject: 'Thanks for your enquiry — BRIX London Bridge',
+    body: text,
+    htmlBody: html
+  });
+}
+
+function niceDate_(d) {
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(d || ''));
+  if (!m) return d;
+  const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  return Number(m[3]) + ' ' + months[Number(m[2]) - 1] + ' ' + m[1];
+}
+
+// Run from the editor to send yourself a sample of the auto-reply.
+function testConfirmation() {
+  sendHireConfirmation_({
+    name: 'Test Person', email: Session.getActiveUser().getEmail(),
+    type: 'Brand launch', guests: '120', date: '2026-11-14', space: 'The Warehouse'
+  });
+}
+
+function sheet_(cfg) {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  let sh = ss.getSheetByName(cfg.name);
+  if (!sh) {
+    sh = ss.insertSheet(cfg.name);
+    sh.appendRow(cfg.head);
+    sh.setFrozenRows(1);
+    sh.getRange(1, 1, 1, cfg.head.length).setFontWeight('bold');
+  }
+  return sh;
+}
+
+function alreadyListed_(sheet, email) {
+  const last = sheet.getLastRow();
+  if (last < 2) return false;
+  const want = String(email).trim().toLowerCase();
+  return sheet.getRange(2, 2, last - 1, 1).getValues()
+    .some(function (r) { return String(r[0]).trim().toLowerCase() === want; });
+}
+
+// Trim, cap length, and stop anything being read as a spreadsheet formula.
+function clean_(v) {
+  const s = String(v == null ? '' : v).trim().slice(0, 3000);
+  return /^[=+\-@]/.test(s) ? "'" + s : s;
+}
+
+function reply_(ok) {
+  return ContentService.createTextOutput(JSON.stringify({ ok: ok }))
+    .setMimeType(ContentService.MimeType.JSON);
+}
+
+// Run this once from the editor to create the three tabs and approve email sending.
+function setup() {
+  Object.keys(SHEETS).forEach(function (k) { sheet_(SHEETS[k]); });
+  MailApp.getRemainingDailyQuota();
+}
+
+
+// =====================================================================
+//  EVENTS  —  the team adds events with a Google Form; the website reads them here.
+// =====================================================================
+const EVENTS_TAB = 'Events';
+const EVENTS_CACHE_SECONDS = 300;   // new or edited events show on the site within 5 minutes
+
+function doGet(e) {
+  const action = e && e.parameter && e.parameter.action;
+  if (action !== 'events') return reply_(false);
+  const cache = CacheService.getScriptCache();
+  let json = cache.get('events');
+  if (!json) {
+    json = JSON.stringify({ ok: true, events: readEvents_() });
+    try { cache.put('events', json, EVENTS_CACHE_SECONDS); } catch (err) {}
+  }
+  return ContentService.createTextOutput(json).setMimeType(ContentService.MimeType.JSON);
+}
+
+function readEvents_() {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const sh = ss.getSheetByName(EVENTS_TAB) ||
+             ss.getSheets().filter(function (s) { return !!s.getFormUrl(); })[0];
+  if (!sh || sh.getLastRow() < 2) return [];
+  const range = sh.getDataRange();
+  const values = range.getValues(), shown = range.getDisplayValues();
+  const head = shown[0].map(function (h) { return String(h).toLowerCase(); });
+  const col = function (words, not) {
+    return head.findIndex(function (h) {
+      return words.some(function (w) { return h.indexOf(w) > -1; }) && !(not && h.indexOf(not) > -1);
+    });
+  };
+  const C = {
+    title: col(['event name', 'title', 'name']),
+    date:  col(['date'], 'timestamp'),
+    time:  col(['start time', 'time'], 'timestamp'),
+    label: col(['label', 'category', 'type']),
+    desc:  col(['description', 'details']),
+    image: col(['image', 'photo', 'poster', 'flyer']),
+    link:  col(['booking', 'ticket', 'link']),
+    hide:  col(['hide'])
+  };
+  const tz = ss.getSpreadsheetTimeZone();
+  const today = Utilities.formatDate(new Date(), tz, 'yyyy-MM-dd');
+  const out = [];
+  for (let r = 1; r < values.length; r++) {
+    const get = function (k) { return C[k] > -1 ? String(shown[r][C[k]]).trim() : ''; };
+    const title = get('title');
+    if (!title || (C.hide > -1 && get('hide'))) continue;
+    const date = isoDate_(C.date > -1 ? values[r][C.date] : '', tz);
+    if (!date || date < today) continue;                     // past events drop off automatically
+    out.push({
+      title: title, date: date, time: get('time').replace(/^(\d{1,2}:\d{2}):\d{2}(\s?[AP]M)?$/i, '$1$2'),
+      label: get('label'), description: get('desc'),
+      image: imageUrl_(get('image')), link: get('link')
+    });
+  }
+  out.sort(function (a, b) { return (a.date + a.time).localeCompare(b.date + b.time); });
+  return out.slice(0, 24);
+}
+
+function isoDate_(v, tz) {
+  if (v instanceof Date && !isNaN(v)) return Utilities.formatDate(v, tz, 'yyyy-MM-dd');
+  const m = /^(\d{1,2})\/(\d{1,2})\/(\d{4})$/.exec(String(v).trim());       // 14/11/2026
+  if (m) return m[3] + '-' + ('0' + m[2]).slice(-2) + '-' + ('0' + m[1]).slice(-2);
+  return /^\d{4}-\d{2}-\d{2}$/.test(String(v).trim()) ? String(v).trim() : '';
+}
+
+// Google Form uploads arrive as Drive links. Make the file viewable and return a direct image URL.
+function imageUrl_(v) {
+  if (!v) return '';
+  const m = /(?:id=|\/d\/)([-\w]{20,})/.exec(v);
+  if (!m) return /^https?:\/\//.test(v) ? v : '';
+  const id = m[1], props = PropertiesService.getScriptProperties();
+  if (!props.getProperty('shared_' + id)) {
+    try {
+      DriveApp.getFileById(id).setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
+      props.setProperty('shared_' + id, '1');
+    } catch (err) { console.error('Could not share image ' + id + ': ' + err); }
+  }
+  return 'https://lh3.googleusercontent.com/d/' + id + '=w1200';
+}
+
+// Edits in the Sheet show on the site straight away.
+function onEdit() { try { CacheService.getScriptCache().remove('events'); } catch (err) {} }
+
+// Run ONCE from the editor: builds the team's "Add an event" form and links it to this Sheet.
+function createEventsForm() {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const form = FormApp.create('BRIX — Add an event');
+  form.setDescription('Fill this in to put an event on brixldn.com/events. It shows on the site within 5 minutes and drops off automatically after the date. ' +
+                      'Portrait images work best (4:5, e.g. 1080 × 1350 — the same as an Instagram post).');
+  form.addTextItem().setTitle('Event name').setRequired(true);
+  form.addDateItem().setTitle('Date').setRequired(true);
+  form.addTimeItem().setTitle('Start time');
+  form.addTextItem().setTitle('Label').setHelpText('Optional — e.g. Live music, DJ night, Supper club, SIXT33N');
+  form.addParagraphTextItem().setTitle('Description').setRequired(true)
+      .setHelpText('Two or three lines is ideal. The site shows about four lines.');
+  form.addTextItem().setTitle('Booking link').setRequired(true)
+      .setHelpText('The full link, starting https:// — OpenTable, Eventbrite, DesignMyNight, Dice etc.')
+      .setValidation(FormApp.createTextValidation().requireTextIsUrl().build());
+  form.setDestination(FormApp.DestinationType.SPREADSHEET, ss.getId());
+  SpreadsheetApp.flush();
+  Utilities.sleep(2000);
+  ss.getSheets().forEach(function (sh) {
+    const fu = sh.getFormUrl();
+    if (fu && fu.indexOf(form.getId()) > -1 && !ss.getSheetByName(EVENTS_TAB)) sh.setName(EVENTS_TAB);
+  });
+  DriveApp.getRootFolder();    // asks for Drive permission now, so images can be shared later
+  Logger.log('EDIT the form (add the Image question): ' + form.getEditUrl());
+  Logger.log('TEAM LINK (share this with the BRIX team): ' + form.getPublishedUrl());
+}
