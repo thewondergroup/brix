@@ -23,4 +23,4 @@ Shared assets: `img/` (photos), `vid/` (background loops), `favicon.png`, `apple
 ## Before it's fully live
 - The **membership sign-up** and **private-hire enquiry** forms are front-end only — wire them to a handler (Google Sheet / mailing tool) or submissions go nowhere.
 - Give the menu prices/wording and members-club T&Cs a final check.
-- `events@brixldn.com` and the member-questions address are placeholders — swap if needed.
+- Enquiry emails: website shows reservations@brixldn.com; form notifications go to reservations@brixldn.com (set in Code.gs).
