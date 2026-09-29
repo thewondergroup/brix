@@ -1,22 +1,18 @@
 <!doctype html>
 <html lang="en">
 <head>
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-PTLF7SFH');</script>
-<!-- End Google Tag Manager -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="dark">
 <meta name="theme-color" content="#0B0A08">
 <meta name="description" content="SIXT33N, the basement vinyl &amp; agave bar beneath BRIX — tequila, mezcal &amp; music, London Bridge SE1.">
+<link rel="canonical" href="https://www.brixldn.com/sixt33n">
 <meta property="og:title" content="SIXT33N — BRIX London Bridge">
 <meta property="og:description" content="SIXT33N, the basement vinyl &amp; agave bar beneath BRIX — tequila, mezcal &amp; music, London Bridge SE1.">
 <meta property="og:type" content="website">
-<meta property="og:image" content="og.jpg">
+<meta property="og:url" content="https://www.brixldn.com/sixt33n">
+<meta property="og:site_name" content="BRIX London Bridge">
+<meta property="og:image" content="https://www.brixldn.com/og.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -452,6 +448,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   /* ---------- real media ---------- */
   .slot.has-media{background:#000}
   .slot.has-media::before{opacity:0}
+  /* photos: only a light shade at the very bottom so the food stays bright */
+  .slot.has-media::after{background:linear-gradient(to top, color-mix(in srgb,var(--pitch) 30%, transparent), transparent 30%)}
   .slot .fill{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;z-index:0}
   .slot.has-media .tag{z-index:3}
   .gallery{display:grid;gap:1px;background:var(--line);border:1px solid var(--line)}
@@ -552,10 +550,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </style>
 </head>
 <body class="theme-basement">
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PTLF7SFH"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
 <div class="grain" aria-hidden="true"></div>
 <div class="ambient" aria-hidden="true"></div>
 
@@ -649,8 +643,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <section class="wrap">
     <div class="split">
-      <div class="slot wide has-media" data-reveal><img class="fill" decoding="async" src="img/sixt33n-bar.webp" alt="The SIXT33N agave bar" loading="lazy"></div>
-      <div class="slot wide has-media" data-reveal style="--d:80ms"><img class="fill" decoding="async" src="img/sixt33n-spirits.webp" alt="Tequila and mezcal on the shelves" loading="lazy"></div>
+      <div class="slot has-media" data-reveal style="aspect-ratio:4/3"><img class="fill" decoding="async" src="img/sixt33n-lounge-bar.webp" alt="SIXT33N — leather sofas, a curved zinc bar and low pendant lights" loading="lazy" style="object-position:55% 55%"></div>
+      <div class="slot has-media" data-reveal style="--d:80ms;aspect-ratio:4/3"><img class="fill" decoding="async" src="img/sixt33n-torch.webp" alt="A bartender torching the sugar rim of a cocktail at SIXT33N" loading="lazy" style="object-position:50% 45%"></div>
     </div>
     <div style="display:flex;gap:.9rem;flex-wrap:wrap;margin-top:2.2rem" data-reveal>
       <a class="btn" href="https://www.opentable.co.uk/r/brix-london" target="_blank" rel="noopener" style="--bg:var(--agave)">Reserve downstairs <span class="arw">→</span></a>

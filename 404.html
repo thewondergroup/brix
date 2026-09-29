@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Page not found — BRIX London Bridge</title>
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/png" href="/favicon.png">
+<script>
+// Old Squarespace links -> the matching page on the new site
+(function(){
+  var p = location.pathname.toLowerCase().replace(/\/+$/,"");
+  var rules = [
+    [/^\/events?-?\d*(\/|$)|whats-on|what-s-on/, "/events"],
+    [/roast|sunday/, "/roast"], [/brunch|breakfast/, "/brunch"],
+    [/cocktail|drink|wine/, "/cocktails"], [/sixt|basement|agave|vinyl/, "/sixt33n"],
+    [/hire|private|party|parties|corporate|venue/, "/hire"], [/member|club/, "/membership"],
+    [/event|whats-on|what-s-on|gig|music/, "/events"],
+    [/menu|grill|burger|pudding|dessert|food|dinner|lunch/, "/menu"],
+    [/contact|find|location|book|reserv|opening|hours/, "/contact"],
+    [/restaurant|kitchen|chef|about/, "/restaurant"], [/^\/home$|^\/index/, "/"]
+  ];
+  for (var i=0;i<rules.length;i++){ if(rules[i][0].test(p)){ location.replace(rules[i][1]); return; } }
+})();
+</script>
+<style>
+  html,body{margin:0;background:#0B0A08;color:#EDE6D8;font-family:"Helvetica Neue",Arial,sans-serif}
+  .w{min-height:100svh;display:flex;flex-direction:column;justify-content:center;gap:1.2rem;padding:2rem clamp(1rem,6vw,5rem);max-width:900px}
+  .k{font-family:"Courier New",monospace;font-size:.75rem;letter-spacing:.28em;text-transform:uppercase;color:#E4531B}
+  h1{font-family:Impact,"Arial Narrow Bold",sans-serif;text-transform:uppercase;font-weight:400;font-size:clamp(3rem,12vw,7rem);line-height:.9;margin:0}
+  p{color:#A79C89;max-width:44ch;line-height:1.6;margin:0}
+  .l{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:.6rem}
+  .l a{color:#EDE6D8;text-decoration:none;border:1px solid rgba(237,230,216,.22);padding:.7em 1em;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;font-weight:700}
+  .l a:first-child{background:#E4531B;border-color:#E4531B;color:#070605}
+  .l a:hover{border-color:#E4531B}
+</style>
+</head><body>
+<div class="w">
+  <span class="k">404 · Page not found</span>
+  <h1>Lost in<br>the warehouse</h1>
+  <p>That page has moved or doesn’t exist any more. Try one of these instead.</p>
+  <div class="l">
+    <a href="/">Home</a><a href="/menu">Menu</a><a href="/roast">Sunday roast</a><a href="/brunch">Brunch</a><a href="/hire">Private hire</a><a href="/events">Events</a><a href="/contact">Contact</a>
+  </div>
+</div>
+</body></html>
