@@ -2,6 +2,13 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-PTLF7SFH');</script>
+<!-- End Google Tag Manager -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="dark">
 <meta name="theme-color" content="#0B0A08">
@@ -550,6 +557,10 @@
 </style>
 </head>
 <body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PTLF7SFH"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
 <div class="grain" aria-hidden="true"></div>
 <div class="ambient" aria-hidden="true"></div>
 
@@ -881,7 +892,12 @@
   }
   loadEvents();
   // forms -> Google Sheet (endpoint lives in /forms.js)
-  function sendForm(kind, form){ try{ var url=window.BRIX_FORM_ENDPOINT; if(!url) return; var fd=new FormData(form); fd.append("form",kind); fd.append("page",location.pathname); fetch(url,{method:"POST",mode:"no-cors",body:new URLSearchParams(fd)}).catch(function(){}); }catch(e){} }
+  window.dataLayer=window.dataLayer||[];
+  document.addEventListener("click", function(e){ var a=e.target.closest("a[href]"); if(!a) return; var h=a.getAttribute("href")||"";
+    if(/opentable\./i.test(h)) window.dataLayer.push({event:"book_table_click", link_text:(a.textContent||"").trim(), page_path:location.pathname});
+    else if(/^tel:/i.test(h)) window.dataLayer.push({event:"phone_click", page_path:location.pathname});
+    else if(/^mailto:/i.test(h)) window.dataLayer.push({event:"email_click", page_path:location.pathname}); });
+  function sendForm(kind, form){ try{ window.dataLayer.push({event:"form_submit", form_name:kind, page_path:location.pathname}); }catch(e){} try{ var url=window.BRIX_FORM_ENDPOINT; if(!url) return; var fd=new FormData(form); fd.append("form",kind); fd.append("page",location.pathname); fetch(url,{method:"POST",mode:"no-cors",body:new URLSearchParams(fd)}).catch(function(){}); }catch(e){} }
   function on(id,h){ var f=document.getElementById(id); if(f) f.addEventListener("submit",h); }
   on("newsForm", function(e){ e.preventDefault(); var em=document.getElementById("news-email"); if(!em.value||em.value.indexOf("@")===-1){em.focus();return;} sendForm("list",document.getElementById("newsForm")); document.getElementById("newsForm").hidden=true; document.getElementById("newsOk").hidden=false; });
   on("hireForm", function(e){ e.preventDefault(); var n=document.getElementById("h-name"), m=document.getElementById("h-email"); if(!n.value){n.focus();return;} if(!m.value||m.value.indexOf("@")===-1){m.focus();return;} sendForm("hire",document.getElementById("hireForm")); var ok=document.createElement("div"); ok.className="form-ok"; ok.innerHTML="<b>Enquiry received</b>Thanks "+n.value.split(" ")[0].replace(/[<>]/g,"")+" \u2014 the events team will be in touch within 24 hours."; document.getElementById("hireForm").replaceWith(ok); });
