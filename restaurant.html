@@ -554,6 +554,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .ev-empty{border:1px solid var(--line);background:var(--concrete);padding:1.6rem 1.7rem}
   @media(max-width:900px){.ev-list{grid-template-columns:repeat(2,1fr)}}
   @media(max-width:560px){.ev-list{grid-template-columns:1fr}}
+  /* UK date: hide the browser's own (region-dependent) date text and show ours instead */
+  .date-wrap{position:relative}
+  .date-wrap input{color:transparent;cursor:pointer}
+  .date-wrap input::-webkit-datetime-edit,.date-wrap input::-webkit-datetime-edit-fields-wrapper,
+  .date-wrap input::-webkit-datetime-edit-day-field,.date-wrap input::-webkit-datetime-edit-month-field,
+  .date-wrap input::-webkit-datetime-edit-year-field,.date-wrap input::-webkit-datetime-edit-text{color:transparent;background:transparent}
+  .date-wrap input::-webkit-calendar-picker-indicator{filter:invert(.85);cursor:pointer}
+  .date-display{position:absolute;left:.95em;right:2.6em;top:50%;transform:translateY(-50%);pointer-events:none;
+    font-family:var(--font-body);font-size:1rem;color:var(--ash);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .date-display.set{color:var(--bone)}
 </style>
 </head>
 <body>
@@ -802,6 +812,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     }).catch(none);
   }
   loadEvents();
+  // hire form: show the chosen date the UK way (browsers otherwise follow the device's region), open the calendar on tap, no past dates
+  (function(){ var d=document.getElementById("h-date"), h=document.getElementById("h-date-hint"); if(!d||!h) return;
+    var t=new Date(); d.min=t.getFullYear()+"-"+("0"+(t.getMonth()+1)).slice(-2)+"-"+("0"+t.getDate()).slice(-2);
+    var D=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"], M=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+    function upd(){ var m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(d.value); if(!m){ h.textContent="Choose a date"; h.classList.remove("set"); return; } var x=new Date(+m[1],+m[2]-1,+m[3]); h.textContent=D[x.getDay()]+" "+x.getDate()+" "+M[x.getMonth()]+" "+m[1]; h.classList.add("set"); }
+    d.addEventListener("input",upd); d.addEventListener("change",upd);
+    d.addEventListener("click",function(){ try{ if(d.showPicker) d.showPicker(); }catch(e){} });
+    upd(); })();
   // forms -> Google Sheet (endpoint lives in /forms.js)
   window.dataLayer=window.dataLayer||[];
   document.addEventListener("click", function(e){ var a=e.target.closest("a[href]"); if(!a) return; var h=a.getAttribute("href")||"";
