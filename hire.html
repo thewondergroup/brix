@@ -564,6 +564,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .date-display{position:absolute;left:.95em;right:2.6em;top:50%;transform:translateY(-50%);pointer-events:none;
     font-family:var(--font-body);font-size:1rem;color:var(--ash);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .date-display.set{color:var(--bone)}
+  /* restaurant gallery: on desktop the fire video matches the height of the 6-photo grid */
+  @media(min-width:901px){.split--match{align-items:stretch}.split--match>.slot.tall{aspect-ratio:auto;min-height:100%}}
+  .gallery--3{grid-template-columns:repeat(3,1fr)}
+  @media(max-width:760px){.gallery--3{grid-template-columns:repeat(2,1fr)}}
 </style>
 </head>
 <body>
@@ -662,7 +666,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <span class="chip">Birthdays</span><span class="chip">Receptions</span><span class="chip">Filming &amp; shoots</span>
         </div>
       </div>
-      <div class="slot tall has-media" data-reveal style="--d:100ms"><img class="fill" decoding="async" src="img/hire-hero.webp" alt="A BRIX room set for a private event" loading="lazy"></div>
+      <div class="slot tall has-media" data-reveal style="--d:100ms"><img class="fill" decoding="async" src="img/hire-space.webp" alt="A BRIX lounge space — leather sofas, a starburst chandelier, exposed brick and tall warehouse windows" loading="lazy" style="object-position:58% 50%"></div>
     </div>
   </section>
 
@@ -673,7 +677,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
     <div class="spaces">
       <div class="space" data-reveal>
-        <span class="slot wide has-media"><img class="fill" decoding="async" src="img/venue-dining.webp" alt="The Warehouse — the main room with graffiti mural, red banquettes and cast-iron columns" loading="lazy" style="object-position:50% 55%"></span>
+        <span class="slot wide has-media"><img class="fill" decoding="async" src="img/hire-warehouse.webp" alt="The Warehouse — long red leather banquette, open kitchen, cast-iron columns and warehouse windows" loading="lazy" style="object-position:50% 60%"></span>
         <div class="space__body">
           <h3>The Warehouse</h3>
           <p style="color:var(--ash);max-width:40ch">The main room — brick, steel and long tables. The heart of the venue for launches and large dinners.</p>
@@ -693,7 +697,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
       </div>
       <div class="space" data-reveal style="--d:120ms">
-        <span class="slot wide has-media"><img class="fill" decoding="async" src="img/sixt33n-basement.webp" alt="SIXT33N basement — the long bar, leather lounge seating and exposed brick" loading="lazy" style="object-position:50% 55%"></span>
+        <span class="slot wide has-media"><img class="fill" decoding="async" src="img/sx-room.webp" alt="SIXT33N basement — the long bar, leather lounge seating and exposed brick" loading="lazy" style="object-position:45% 55%"></span>
         <div class="space__body">
           <h3>SIXT33N Basement</h3>
           <p style="color:var(--ash);max-width:40ch">The vinyl and agave bar as a private space — low light, records and a dedicated bar for after-dark events.</p>

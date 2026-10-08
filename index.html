@@ -564,6 +564,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .date-display{position:absolute;left:.95em;right:2.6em;top:50%;transform:translateY(-50%);pointer-events:none;
     font-family:var(--font-body);font-size:1rem;color:var(--ash);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .date-display.set{color:var(--bone)}
+  /* restaurant gallery: on desktop the fire video matches the height of the 6-photo grid */
+  @media(min-width:901px){.split--match{align-items:stretch}.split--match>.slot.tall{aspect-ratio:auto;min-height:100%}}
+  .gallery--3{grid-template-columns:repeat(3,1fr)}
+  @media(max-width:760px){.gallery--3{grid-template-columns:repeat(2,1fr)}}
 </style>
 </head>
 <body>
@@ -691,7 +695,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="offer-grid">
       <a class="offer" href="/restaurant" data-reveal>
         <span class="offer__num">01</span>
-        <span class="slot has-media"><img class="fill" decoding="async" src="img/offer-restaurant.webp" alt="A fire-grilled sharing board" loading="lazy"></span>
+        <span class="slot has-media"><img class="fill" decoding="async" src="img/offer-board.webp" alt="The BRIX Board — cheeseburgers, short rib, bavette, merguez, pork belly, padrón peppers and chimichurri" loading="lazy" style="object-position:50% 46%"></span>
         <span class="offer__body">
           <h3>The Restaurant</h3>
           <p>Bold, fire-based, smoky small plates and sharing boards — smoke, char and salt from Head Chef Jake Newman.</p>
@@ -709,7 +713,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </a>
       <a class="offer" href="/sixt33n" data-reveal style="--d:120ms">
         <span class="offer__num">03</span>
-        <span class="slot has-media"><img class="fill" decoding="async" src="img/offer-sixt33n.webp" alt="The SIXT33N basement bar" loading="lazy"></span>
+        <span class="slot has-media"><img class="fill" decoding="async" src="img/sx-decks-bar.webp" alt="SIXT33N — the decks, a record crate and the curved bar" loading="lazy"></span>
         <span class="offer__body">
           <h3>SIXT33N</h3>
           <p>Head downstairs. A basement vinyl and agave bar — tequila, mezcal and records until late.</p>
@@ -728,6 +732,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </section>
 
+  <!-- from the fire: two food shots -->
+  <section class="wrap">
+    <div class="section-head">
+      <h2 data-reveal>From the fire</h2>
+      <a class="textlink" href="/menu" data-reveal>See the menu <span class="arw">↗</span></a>
+    </div>
+    <div class="gallery gallery--2" data-reveal style="--d:60ms">
+      <span class="slot sq has-media"><img class="fill" decoding="async" src="img/rest-bao.webp" alt="Braised short rib bao bun with crispy onions and pickled chilli" loading="lazy" style="object-position:50% 55%"></span>
+      <span class="slot sq has-media"><img class="fill" decoding="async" src="img/rest-steak.webp" alt="Sliced flame-grilled steak finished with sea salt flakes" loading="lazy"></span>
+    </div>
+  </section>
+
   <!-- sunday roast feature -->
   <section class="wrap">
     <div class="feature">
@@ -743,7 +759,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </div>
         </div>
         <div class="slot band band--portrait has-media" data-reveal style="--d:100ms">
-          <img class="fill" decoding="async" src="img/roast-pour.webp" alt="Dry-aged beef rump Sunday roast with gravy being poured, Yorkshire pudding, charred hispi cabbage and carrots" loading="lazy" style="object-position:50% 62%">
+          <img class="fill" decoding="async" src="img/offer-roast.webp" alt="Sliced dry-aged beef Sunday roast with Yorkshire pudding, hispi cabbage and a jug of gravy" loading="lazy" style="object-position:50% 50%">
         </div>
       </div>
     </div>
@@ -752,7 +768,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- sixt33n teaser -->
   <section class="wrap">
     <a class="strip" href="/sixt33n" style="display:block" data-reveal>
-      <span class="strip__bg-wrap" aria-hidden="true"><img class="strip__bg" decoding="async" src="img/neon.webp" alt=""><span class="strip__glow"></span></span>
+      <span class="strip__bg-wrap" aria-hidden="true"><img class="strip__bg" decoding="async" src="img/sx-vinyl.webp" alt="" style="object-position:60% 50%"><span class="strip__glow"></span></span>
       <span class="strip__inner">
         <span>
           <span class="eyebrow" style="color:var(--agave)">Downstairs · Basement</span>

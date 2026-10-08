@@ -564,6 +564,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .date-display{position:absolute;left:.95em;right:2.6em;top:50%;transform:translateY(-50%);pointer-events:none;
     font-family:var(--font-body);font-size:1rem;color:var(--ash);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .date-display.set{color:var(--bone)}
+  /* restaurant gallery: on desktop the fire video matches the height of the 6-photo grid */
+  @media(min-width:901px){.split--match{align-items:stretch}.split--match>.slot.tall{aspect-ratio:auto;min-height:100%}}
+  .gallery--3{grid-template-columns:repeat(3,1fr)}
+  @media(max-width:760px){.gallery--3{grid-template-columns:repeat(2,1fr)}}
 </style>
 </head>
 <body>
@@ -667,7 +671,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <span class="slot sq has-media"><img class="fill" decoding="async" src="img/roast-real-1.webp" alt="Fire-charred chicken Sunday roast with a gravy pour" loading="lazy"></span>
         <span class="slot sq has-media"><img class="fill" decoding="async" src="img/offer-roast.webp" alt="A BRIX roast with the trimmings" loading="lazy"></span>
         <span class="slot sq has-media"><img class="fill" decoding="async" src="img/plate-marrow.webp" alt="Fire-roasted bone marrow to start" loading="lazy"></span>
-        <span class="slot sq has-media"><img class="fill" decoding="async" src="img/roast-pour.webp" alt="Dry-aged beef rump roast with Yorkshire pudding, charred hispi cabbage and a gravy pour" loading="lazy" style="object-position:50% 60%"></span>
+        <span class="slot sq has-media"><img class="fill" decoding="async" src="img/roast-toffee.webp" alt="Sticky toffee pudding with vanilla ice cream" loading="lazy" style="object-position:50% 52%"></span>
       </div>
       <div class="stack-sm">
         <span class="eyebrow" data-reveal>On every plate</span>

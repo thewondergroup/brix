@@ -564,6 +564,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .date-display{position:absolute;left:.95em;right:2.6em;top:50%;transform:translateY(-50%);pointer-events:none;
     font-family:var(--font-body);font-size:1rem;color:var(--ash);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .date-display.set{color:var(--bone)}
+  /* restaurant gallery: on desktop the fire video matches the height of the 6-photo grid */
+  @media(min-width:901px){.split--match{align-items:stretch}.split--match>.slot.tall{aspect-ratio:auto;min-height:100%}}
+  .gallery--3{grid-template-columns:repeat(3,1fr)}
+  @media(max-width:760px){.gallery--3{grid-template-columns:repeat(2,1fr)}}
 </style>
 </head>
 <body>
@@ -665,11 +669,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
     <div class="split">
       <div class="gallery gallery--2" data-reveal>
-        <!-- lead: real brunch photo (client-supplied); the other three are placeholders to swap -->
-        <span class="slot sq has-media"><img class="fill" decoding="async" src="img/brunch-real-2.webp" alt="Smashed avocado on charred sourdough with poached egg" loading="lazy"></span>
-        <span class="slot sq has-media"><img class="fill" decoding="async" src="img/plate-scotchegg.webp" alt="A flame-cooked brunch plate" loading="lazy"></span>
-        <span class="slot sq has-media"><img class="fill" decoding="async" src="img/offer-restaurant.webp" alt="A BRIX brunch table" loading="lazy"></span>
-        <span class="slot sq has-media"><img class="fill" decoding="async" src="img/venue-bar.webp" alt="The bar at BRIX" loading="lazy"></span>
+        <span class="slot sq has-media"><img class="fill" decoding="async" src="img/br-fullenglish.webp" alt="The BRIX Big Breakfast board — bacon, sausages, fried eggs, mushrooms, grilled tomatoes, hash brown and beans" loading="lazy" style="object-position:50% 50%"></span>
+        <span class="slot sq has-media"><img class="fill" decoding="async" src="img/br-steakeggs.webp" alt="Flame-grilled steak and eggs on toast with a runny yolk" loading="lazy" style="object-position:50% 55%"></span>
+        <span class="slot sq has-media"><img class="fill" decoding="async" src="img/br-chickenwaffles.webp" alt="Chicken and waffles with a fried egg and hot honey" loading="lazy" style="object-position:50% 60%"></span>
+        <span class="slot sq has-media"><img class="fill" decoding="async" src="img/br-avocado.webp" alt="Smashed avocado on charred sourdough with poached eggs, under the BRIX neon" loading="lazy" style="object-position:50% 52%"></span>
       </div>
       <div class="stack-sm">
         <span class="eyebrow" data-reveal>Order these first</span>

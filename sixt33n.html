@@ -564,6 +564,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .date-display{position:absolute;left:.95em;right:2.6em;top:50%;transform:translateY(-50%);pointer-events:none;
     font-family:var(--font-body);font-size:1rem;color:var(--ash);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .date-display.set{color:var(--bone)}
+  /* restaurant gallery: on desktop the fire video matches the height of the 6-photo grid */
+  @media(min-width:901px){.split--match{align-items:stretch}.split--match>.slot.tall{aspect-ratio:auto;min-height:100%}}
+  .gallery--3{grid-template-columns:repeat(3,1fr)}
+  @media(max-width:760px){.gallery--3{grid-template-columns:repeat(2,1fr)}}
 </style>
 </head>
 <body class="theme-basement">
@@ -623,7 +627,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <article class="page" id="page-sixt33n">
   <section class="phero phero--media">
     <div class="phero__bg" aria-hidden="true">
-      <img class="fill" src="img/sixt33n-bar.webp" alt="" decoding="async">
+      <img class="fill" src="img/sx-room.webp" alt="" decoding="async" style="object-position:50% 60%">
       <span class="phero__scrim"></span>
     </div>
     <div class="phero__inner">
@@ -663,10 +667,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </section>
 
   <section class="wrap">
-    <div class="split">
-      <div class="slot has-media" data-reveal style="aspect-ratio:4/3"><img class="fill" decoding="async" src="img/sixt33n-lounge-bar.webp" alt="SIXT33N — leather sofas, a curved zinc bar and low pendant lights" loading="lazy" style="object-position:55% 55%"></div>
-      <div class="slot has-media" data-reveal style="--d:80ms;aspect-ratio:4/3"><img class="fill" decoding="async" src="img/sixt33n-torch.webp" alt="A bartender torching the sugar rim of a cocktail at SIXT33N" loading="lazy" style="object-position:50% 45%"></div>
-    </div>
+    <div class="gallery gallery--3" data-reveal>
+        <span class="slot has-media" style="aspect-ratio:3/2"><img class="fill" decoding="async" src="img/sx-room.webp" alt="The SIXT33N basement — bar, leather sofas and exposed brick" loading="lazy" style="object-position:50% 55%"></span>
+        <span class="slot has-media" style="aspect-ratio:3/2"><img class="fill" decoding="async" src="img/sx-decks-bar.webp" alt="The decks and record crate beside the curved zinc bar" loading="lazy" style="object-position:50% 55%"></span>
+        <span class="slot has-media" style="aspect-ratio:3/2"><img class="fill" decoding="async" src="img/sx-neon-door.webp" alt="The red neon SIXT33N room behind the glass doors" loading="lazy" style="object-position:50% 50%"></span>
+        <span class="slot has-media" style="aspect-ratio:3/2"><img class="fill" decoding="async" src="img/sx-vinyl.webp" alt="Vinyl shelves, turntables and the backlit agave bar" loading="lazy" style="object-position:45% 55%"></span>
+        <span class="slot has-media" style="aspect-ratio:3/2"><img class="fill" decoding="async" src="img/sx-bar.webp" alt="The curved bar with leather swivel seats under blue pendant lights" loading="lazy" style="object-position:50% 60%"></span>
+        <span class="slot has-media" style="aspect-ratio:3/2"><img class="fill" decoding="async" src="img/sx-lounge.webp" alt="Worn leather sofas, framed photography and the bar" loading="lazy" style="object-position:50% 60%"></span>
+      </div>
     <div style="display:flex;gap:.9rem;flex-wrap:wrap;margin-top:2.2rem" data-reveal>
       <a class="btn" href="https://www.opentable.co.uk/r/brix-london" target="_blank" rel="noopener" style="--bg:var(--agave)">Reserve downstairs <span class="arw">→</span></a>
       <a class="btn btn--ghost" href="/hire">Hire SIXT33N <span class="arw">→</span></a>
